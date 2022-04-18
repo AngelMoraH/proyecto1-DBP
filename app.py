@@ -16,25 +16,10 @@ app.register_blueprint(routes,url_prefix="/")
 db.init_app(app)
 
 
-
 with app.app_context():
     db.create_all()
-# Controllers
 
 
 # run
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-""" user = User(email=request.form['email'],password=request.form['password'])
-        logged_user=ModelUser.login(db,user)
-        if logged_user!=None:
-            if logged_user.password:
-                return redirect(url_for("home"))
-            else:
-                flash('Invalid Password...')
-            return render_template("auth/login.html")
-        else:
-            flash('User not found...')
-            return render_template("auth/login.html")"""
