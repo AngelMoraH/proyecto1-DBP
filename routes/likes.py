@@ -7,30 +7,42 @@ from . import routes
 @routes.route("/likes/")
 def getLikes():
     res = Likes.query.all()
-    likes = {}
-    likes["likes"] = []
-    for like in res:
-        likes["likes"].append(like.toJson())
-    return Response(str(likes["likes"]))
+    return Response(str(res))
 
 
 @routes.route("/likes/", methods=["POST"])
 def addLike():
+    res = Likes.query.all()
+    response = ""
     request_data = request.get_json()
-    like = Likes(
-        idMovie=request_data["idMovie"],
-        idUsuario=request_data["idUsuario"],
-        boolLike=request_data["boolLike"],
-        dateCreated=request_data["dateCreated"],
-    )
-    db.session.add(like)
-    db.session.commit()
-    db.session.close()
-    return "like hecho con exito"
+    print(request_data["data"]["idMovie"])
+    for like in res:
+        if (
+            like.data["idMovie"] == request_data["data"]["idMovie"]
+            and like.data["idUsuario"] == request_data["data"]["idUsuario"]
+        ):
+            response = "like ya existe"
+            break
+
+    if response != "":
+        return response
+    else:
+        like = Likes(data=request_data["data"])
+        db.session.add(like)
+        db.session.commit()
+        db.session.close()
+        return "like hecho con exito"
+
 
 @routes.route("/likes/<int:movieID>/<int:userID>", methods=["DELETE"])
-def removeLike(movieID,userID):
-    like = Likes.query.filter_by(idMovie=movieID,idUsuario=userID).first()
+def removeLike(movieID, userID):
+    res = Likes.query.all()
+    likeId = 0
+    for like in res:
+        if like.data["idMovie"] == movieID and like.data["idUsuario"] == userID:
+            likeId = like.id
+            break
+    like = Likes.query.filter_by(id=likeId).first()
     db.session.delete(like)
     db.session.commit()
     db.session.close()

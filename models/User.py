@@ -9,13 +9,4 @@ class User(db.Model):
     dateCreated = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
-        return f"<User id={self.id}, userName={self.userName},email={self.email},password={self.password}, dateCreated={self.dateCreated}>"
-
-    def toJson(self):
-        return {
-            "id": self.id,
-            "userName": self.userName,
-            "email": self.email,
-            "password": self.password,
-            "dateCreated": self.dateCreated,
-        }
+        return str({"id": self.id,"userName": self.userName,"email": self.email,"password": self.password,"dateCreated": self.dateCreated})
