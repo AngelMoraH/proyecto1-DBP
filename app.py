@@ -2,7 +2,7 @@ from flask import Flask
 from dotenv import load_dotenv
 import os
 from routes import *
-from configuration import db
+from configuration import db,jsf
 
 
 app = Flask(__name__)  # dander-name meta data

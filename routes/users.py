@@ -1,25 +1,24 @@
-from flask import render_template,request,redirect,url_for,session
+from flask import jsonify, render_template,request,redirect,url_for,session
 from werkzeug.security import check_password_hash,generate_password_hash
 import datetime
-from configuration import db
+from configuration import db,sys
 from models.User import User
 from . import routes
 
-@routes.route('/')
-def index():
-    if 'user' in session:
-        return render_template('index.html',user=session['user'])
-    return redirect(url_for('routes.login'))
 
-@routes.route('/login',methods=["GET","POST"])
+
+
+@routes.route('/login/',methods=["GET","POST"])
 def login():
     if request.method == "POST":
-        user=db.session.query(User).filter_by(email=request.form['email']).first()
-        if check_password_hash(user.password,request.form['password']):
+        print(request.get_json()['password'])
+        user=User.query.filter_by(email=request.get_json()['email']).first()
+        print(user)
+        if check_password_hash(user.password,request.get_json()['password']):
             session['user']=user.toJson()
-            return redirect(url_for("routes.index"))
+            return jsonify({"user":user.toJson(),"status":"success"}) #redirect(url_for("routes.home"))
         else:
-            return "error"
+            return jsonify({"message":"Usuario o contraseña incorrectos","status":"no success"})
     else:
         return render_template("auth/login.html")
 
@@ -27,22 +26,35 @@ def login():
 @routes.route("/logout")
 def logout():
     session.pop('user', None)
-    return redirect(url_for("routes.index"))
+    return redirect(url_for("routes.home"))
 
 
 @routes.route("/register",methods=["GET","POST"])
 def register():
+    response={}
     if request.method == "POST":
-        user = User(
-        userName=request.form['userName'],
-        email=request.form['email'],
-        password=   generate_password_hash(request.form['password']),
-        dateCreated=datetime.datetime.now(),
-        )
-        db.session.add(user)
-        db.session.commit()
-        db.session.close()
-        return redirect(url_for("home"))
+        try:
+            user = User(
+            userName=request.get_json()['userName'],
+            email=request.get_json()['email'],
+            password=generate_password_hash(request.get_json()['password']),
+            dateCreated=datetime.datetime.now(),
+            )
+            db.session.add(user)
+            db.session.commit()
+            response['user']=user.toJson()
+            response['status']="success"
+            response['message']="Usuario agregado con exito"
+        except Exception as e:
+            print(e)
+            print(sys.exc_info())
+            db.session.rollback()
+            response['status']="no success"
+            response['message']=e
+            #return jsonify({"message":e})
+        finally:
+            db.session.close()
+        return jsonify({'message':response["message"],'status':response["status"]}) #redirect(url_for("routes.home"))
     else:
         return render_template("auth/register.html")
     

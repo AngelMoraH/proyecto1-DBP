@@ -6,6 +6,6 @@ class Likes(db.Model):
     
     def __repr__(self):
         return str({'id': self.id,'data':self.data})
-
     
-
+    def toJson(self):
+        return {'id': self.id,'data':self.data}
