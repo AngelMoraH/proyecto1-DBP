@@ -11,14 +11,15 @@ from . import routes
 @routes.route('/login/',methods=["GET","POST"])
 def login():
     if request.method == "POST":
-        print(request.get_json()['password'])
         user=User.query.filter_by(email=request.get_json()['email']).first()
-        print(user)
-        if check_password_hash(user.password,request.get_json()['password']):
-            session['user']=user.toJson()
-            return jsonify({"user":user.toJson(),"status":"success"}) #redirect(url_for("routes.home"))
+        if user:
+            if check_password_hash(user.password,request.get_json()['password']):
+                session['user']=user.toJson()
+                return jsonify({"user":user.toJson(),"status":"success"})
+            else:
+                return jsonify({"message":"Usuario o contraseña incorrectos","status":"no success"})
         else:
-            return jsonify({"message":"Usuario o contraseña incorrectos","status":"no success"})
+            return jsonify({"message":"Usuario no existe","status":"no success"})
     else:
         return render_template("auth/login.html")
 
