@@ -26,7 +26,7 @@ def getCalificacionById(movieID):
 
 
 @routes.route("/likes/", methods=["POST"])
-def addLike():
+def addCalificacion():
     response = {}
     message = ""
     try:
@@ -57,7 +57,7 @@ def addLike():
 
 
 @routes.route("/likes/<int:movieID>/<int:userID>", methods=["DELETE"])
-def removeLike(movieID, userID):
+def removeCalificacion(movieID, userID):
     message="calificacion eliminada con exito"
     try:
         res = Calificacion.query.all()

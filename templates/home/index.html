@@ -1,6 +1,6 @@
 {% extends './base.html' %}
 
-{% block title %}Index{% endblock %}
+{% block title %}HorrorPedia{% endblock %}
 {% block customCSS %}
 <style>
     .container-movie {
@@ -21,7 +21,7 @@
 <p>INDEX</p>
 {{user}}
 <hr>
-
+{{movies}}
 <ul>
     <li>prueba</li>
 </ul>
@@ -34,28 +34,26 @@
 <script>
     var likes;
     var userID = "{{user.id}}";
-    console.log(userID);
+    console.log('userID',userID);
     listMoviesUI = document.getElementById('container-movies');
-
     const showMovies = async () => {
         listMoviesUI.innerHTML = '';
         const response = await fetch('movies/')
         const movies = await response.json();
         movies.movies.forEach(movie => {
             listMoviesUI.innerHTML += `
-            <div class="container-movie">
+            <div id="${movie.id}" class="container-movie" onclick="showMovie(${movie.id})">
                 <h3>${movie.data['nombre']}</h3>
                 <img style="width:30px" src="${movie.data['imagenURL']}" alt="logo">
-                <p>${movie.data['anioEstreno']}</p>
-                <p>${movie.data['director']}</p>
-                <p>${movie.data['likes']}</p>
-                <button onclick="validateLike(${movie.id},${userID})">Like</button>
+                <p>${movie.data['fechaEstreno']}</p>
+                <p class="movielike">${movie.data['likes']}</p>
+                <button onclick="validateLike(${movie.id},${userID},${movie.data['likes']})">Like</button>
             </div>
             `
         });
     }
 
-    const addLikesMovies = async (id,idUser) => {
+    const addLikesMovies = async (id, idUser) => {
         const response = await fetch(`/likes/`, {
             method: 'POST',
             body: JSON.stringify({
@@ -73,7 +71,7 @@
         return message;
     }
 
-    const removeLikeMovies = async (id,idUser) => {
+    const removeLikeMovies = async (id, idUser) => {
         const response = await fetch(`/likes/${id}/${idUser}`, {
             method: 'DELETE',
             headers: {
@@ -83,33 +81,24 @@
         const message = response;
         return message;
     }
-    const validateLike = async (id,idUser) => {
-        var rMessage = await addLikesMovies(id,idUser);
-        //console.log('response:',rMessage.message);
-        if (rMessage.message == "like ya existe") {
-            var reMessage= await removeLikeMovies(id,idUser);
-            //console.log(reMessage);
+    const validateLike = async (id, idUser,like) => {
+        if (userID.length==0){
+            alert('Debes iniciar sesión para poder darle like');
+        }else{
+            var rMessage = await addLikesMovies(id, idUser);
+            if (rMessage.message == "like ya existe") {
+                var reMessage = await removeLikeMovies(id, idUser);
+                document.getElementById(id).querySelector('.movielike').innerHTML--;
+            }else{
+                document.getElementById(id).querySelector('.movielike').innerHTML ++;
+            }
         }
-        showMovies();
     }
-
-
-
-    document.addEventListener('DOMContentLoaded',showMovies);
-
-    /*
-    const button = document.getElementById('idButton');
-
-    button.onclick = () => {
-        const idMovie = document.getElementById('idMovie').innerHTML;
-        likesMovies = document.getElementById('like').innerHTML;
-        likesMovies = likesMovies.split(' ')
-        validateLike(parseInt(idMovie,10), parseInt(likesMovies[1],10));
+    const showMovie = (id) => {
+        console.log(id);
+        window.location.href = `/movie/${id}`;
     }
-    */
-
+    document.addEventListener('DOMContentLoaded', showMovies);
 
 </script>
 {% endblock %}
-
-

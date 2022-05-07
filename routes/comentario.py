@@ -36,7 +36,7 @@ def createComentario():
     return jsonify({"message": message, "response": response})
 
 @routes.route("/movies/<int:commentID>", methods=["PUT"])
-def updateMovie(commentID):
+def updateComentario(commentID):
     message=""
     try:
         comentario=Comentario.query.filter_by(id=commentID).first()
