@@ -11,7 +11,8 @@ def getComentarios():
     for i in range(0,len(res)):
         likes=getLikesById(res[i].id)
         res[i].data["likes"]=likes
-    return jsonify({"movies": [m.toJson() for m in res]})
+    print(sorted(res, key=lambda x: x.data["likes"], reverse=True))
+    return jsonify({"cometarios": [m.toJson() for m in res]})
 
 
 @routes.route("/comentario/", methods=["POST"])

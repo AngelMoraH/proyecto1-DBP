@@ -5,9 +5,6 @@ from configuration import db,sys
 from models.User import User
 from . import routes
 
-
-
-
 @routes.route('/login/',methods=["GET","POST"])
 def login():
     if request.method == "POST":
@@ -52,10 +49,9 @@ def register():
             db.session.rollback()
             response['status']="no success"
             response['message']=e
-            #return jsonify({"message":e})
         finally:
             db.session.close()
-        return jsonify({'message':response["message"],'status':response["status"]}) #redirect(url_for("routes.home"))
+        return jsonify({'message':response["message"],'status':response["status"]})
     else:
         return render_template("auth/register.html")
     
