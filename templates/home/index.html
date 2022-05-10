@@ -34,7 +34,6 @@
 <script>
     var likes;
     var userID = "{{user.id}}";
-    console.log('userID',userID);
     listMoviesUI = document.getElementById('container-movies');
     const showMovies = async () => {
         listMoviesUI.innerHTML = '';
@@ -60,7 +59,7 @@
                 data: {
                     "idComment": id,
                     "idUsuario": idUser,
-                    "dateCreated": "2022-04-11 11:11"
+                    "dateCreated": Date.now()
                 }
             }),
             headers: {
@@ -95,7 +94,6 @@
         }
     }
     const showMovie = (id) => {
-        console.log(id);
         window.location.href = `/movie/${id}`;
     }
     document.addEventListener('DOMContentLoaded', showMovies);

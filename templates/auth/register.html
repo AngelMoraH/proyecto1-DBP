@@ -34,7 +34,7 @@
             }
         }).then(res=>res.json()).then(data=>{
             if(data.status==="success"){
-                window.location.href = '/';
+                window.location.href = '/login';
             }else{
                 alert(data.message);
             }

@@ -1,13 +1,7 @@
-from flask import jsonify, request,session
+from flask import jsonify, request
 from configuration import db, sys
 from models.Likes import Likes
 from . import routes
-
-
-@routes.route("/likes/")
-def getLikes():
-    res = Likes.query.all()
-    return jsonify({"likes": [l.toJson() for l in res]})
 
 
 @routes.route("/likes/<int:commentID>/")
@@ -22,7 +16,7 @@ def getLikesById(commentID):
         print(e)
         print(sys.exc_info())
 
-    return totalLikes #jsonify({"likes": totalLikes})
+    return totalLikes
 
 
 @routes.route("/likes/", methods=["POST"])

@@ -1,7 +1,5 @@
-import json
 from flask import jsonify, request
 from configuration import db, sys
-from sqlalchemy import update
 from models.Movies import Movie
 from routes.likes import getLikesById
 from . import routes
@@ -48,7 +46,6 @@ def createMovie():
 def updateMovie(movieID):
     message=""
     try:
-        #movie=Movie.query.filter_by(id=movieID).update(dict(data=request.get_json()["data"]))
         movie=Movie.query.filter_by(id=movieID).first()
         nMovie = Movie.query.filter_by(id=movieID).update(dict(data=movie.data))
         db.session.commit()
@@ -77,5 +74,4 @@ def deleteMovie(movieID):
         db.session.rollback()
     finally:
         db.session.close()
-
     return jsonify({"message": message})

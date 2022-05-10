@@ -19,24 +19,32 @@
 
     formulario.onsubmit = (e) => {
         e.preventDefault();
-        fetch('/login/', {
-            method: 'POST',
-            body: JSON.stringify({
-                'email': email.value,
-                'password': password.value
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.status==="success") {
-                window.location.href = '/';
-            } else {
-                alert(data.message);
-            }
-        });
+        if(email.value=='' && password.value==''){
+            alert('Por favor, rellene los campos email y contraseña');
+        }else if(email.value==''){
+            alert('Por favor, rellene el campo email');
+        } else if(password.value==''){
+            alert('Por favor, rellene el campo contraseña');
+        }else{
+            fetch('/login/', {
+                method: 'POST',
+                body: JSON.stringify({
+                    'email': email.value,
+                    'password': password.value
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.status==="success") {
+                    window.location.href = '/';
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
     }
 
 </script>
