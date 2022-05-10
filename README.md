@@ -1,9 +1,7 @@
 
-<center>
-<h1>HORRORPEDIA</h1>
-</center>
-<center>
-<img style="width: 150px;" src='static/imgs/grm.png' alt='logo'/></center>
+# HORRORPEDIA
+
+<img style="width: 150px;" src='static/imgs/grm.png' alt='logo'/>
 
 <center>
 
@@ -34,7 +32,9 @@
 </div>
 </center>
 <hr/>
+
 ## DESCRIPCIÓN DEL PROYECTO
+
 Nuestro proyecto es una página web que contiene una lista de películas de terror con su respectiva información:
 * **Título de la película**
 * **Poster de la película**
