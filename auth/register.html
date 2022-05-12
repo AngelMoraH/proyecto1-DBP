@@ -4,11 +4,25 @@
 
 
 {% block body %}
-<form id="register-form" action="/register" method="POST">
-    <input type="text" id="userName" name="userName" placeholder="Usuario">
-    <input type="text" id="email" name="email" placeholder="Correo">
-    <input type="password" id="password" name="password" placeholder="Contraseña">
-    <input type="submit">
+<form id="register-form" action="/register" method="POST" class="formulario">
+    <h1>Crea tu cuenta en HORRORPEDIA
+    </h1>
+    <div class ="contenedor">
+        <div class = "input-contenedor">   
+            <i class="fa-solid fa-user icon"></i>
+            <input type="text" id="userName" name="userName" placeholder="Usuario">
+        </div>
+        <div class = "input-contenedor">
+            <i class="fa-solid fa-envelope icon"></i>
+            <input type="text" id="email" name="email" placeholder="Correo">
+        </div>
+        <div class = "input-contenedor">
+            <i class="fa-solid fa-lock icon"></i>
+            <input type="password" id="password" name="password" placeholder="Contraseña">
+        </div>
+            <input type="submit" value="Registrarse" class="button">
+            <p>¿Ya te registraste?<a class="link" href="/login">Iniciar sesión</a></p>
+    </div>
 </form>
 {% endblock %}
 
