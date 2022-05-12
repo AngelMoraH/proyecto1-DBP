@@ -1,0 +1,102 @@
+{% extends './base.html' %}
+
+{% block title %}HorrorPedia{% endblock %}
+{% block customCSS %}
+<style>
+    .container-movie {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f5f5f5;
+        height: 7rem;
+        width: 10rem;
+        margin: 3rem;
+        padding: 5px 0px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<p>INDEX</p>
+{{user}}
+<hr>
+{{movies}}
+<ul>
+    <li>prueba</li>
+</ul>
+<div id="container-movies">
+
+</div>
+{% endblock %}
+
+{% block customJS %}
+<script>
+    var likes;
+    var userID = "{{user.id}}";
+    listMoviesUI = document.getElementById('container-movies');
+    const showMovies = async () => {
+        listMoviesUI.innerHTML = '';
+        const response = await fetch('movies/')
+        const movies = await response.json();
+        movies.movies.forEach(movie => {
+            listMoviesUI.innerHTML += `
+            <div id="${movie.id}" class="container-movie" onclick="showMovie(${movie.id})">
+                <h3>${movie.data['nombre']}</h3>
+                <img style="width:30px" src="${movie.data['imagenURL']}" alt="logo">
+                <p>${movie.data['fechaEstreno']}</p>
+                <p class="movielike">${movie.data['likes']}</p>
+                <button onclick="validateLike(${movie.id},${userID},${movie.data['likes']})">Like</button>
+            </div>
+            `
+        });
+    }
+
+    const addLikesMovies = async (id, idUser) => {
+        const response = await fetch(`/likes/`, {
+            method: 'POST',
+            body: JSON.stringify({
+                data: {
+                    "idComment": id,
+                    "idUsuario": idUser,
+                    "dateCreated": Date.now()
+                }
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const message = response.json();
+        return message;
+    }
+
+    const removeLikeMovies = async (id, idUser) => {
+        const response = await fetch(`/likes/${id}/${idUser}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const message = response;
+        return message;
+    }
+    const validateLike = async (id, idUser,like) => {
+        if (userID.length==0){
+            alert('Debes iniciar sesión para poder darle like');
+        }else{
+            var rMessage = await addLikesMovies(id, idUser);
+            if (rMessage.message == "like ya existe") {
+                var reMessage = await removeLikeMovies(id, idUser);
+                document.getElementById(id).querySelector('.movielike').innerHTML--;
+            }else{
+                document.getElementById(id).querySelector('.movielike').innerHTML ++;
+            }
+        }
+    }
+    const showMovie = (id) => {
+        window.location.href = `/movie/${id}`;
+    }
+    document.addEventListener('DOMContentLoaded', showMovies);
+
+</script>
+{% endblock %}

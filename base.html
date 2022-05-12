@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css' ) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css' ) }}">
+    <link rel="icon" href="{{ url_for('static', filename='imgs/grm.png' ) }}">
+    <script src="https://kit.fontawesome.com/4bf2b58ebf.js" crossorigin="anonymous"></script>
+    {% block customCSS %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <strong><a href="/">HORRORPEDIA</a></strong>
+        <ul>
+            <li>
+                <a href="/login">login</a>
+            </li>
+            <li>
+                <a href="/register">register</a>
+            </li>
+        </ul>
+    </nav>
+    {% block body %}{% endblock %}
+    {% block customJS %}{% endblock %}
+</body>
+</html>
