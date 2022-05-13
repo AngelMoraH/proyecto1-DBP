@@ -4,10 +4,21 @@
 
 
 {% block body %}
-<form id="login-form">
-    <input type="text" id="email" name="email">
-    <input type="text" id="password" name="password">
-    <input type="submit">
+
+<form id="login-form" class="formulario">
+    <h1>Inicia Sesion</h1>
+    <div class="contenedor">
+        <div class="input-contenedor">
+            <i class="fa-solid fa-user icon"></i>
+            <input type="text" id="email" name="email" placeholder="Correo electronico">
+        </div>
+        <div class="input-contenedor">
+            <i class="fa-solid fa-lock icon"></i>
+            <input type="password" id="password" name="password" placeholder="Contraseña">
+        </div>
+        <input type="submit" value="Iniciar sesión" class="button">
+        <p>¿No tienes una cuenta?<a class="link" href="/register">Regístrate</a></p>
+    </div>
 </form>
 {% endblock %}
 
@@ -19,13 +30,13 @@
 
     formulario.onsubmit = (e) => {
         e.preventDefault();
-        if(email.value=='' && password.value==''){
+        if (email.value == '' && password.value == '') {
             alert('Por favor, rellene los campos email y contraseña');
-        }else if(email.value==''){
+        } else if (email.value == '') {
             alert('Por favor, rellene el campo email');
-        } else if(password.value==''){
+        } else if (password.value == '') {
             alert('Por favor, rellene el campo contraseña');
-        }else{
+        } else {
             fetch('/login/', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -36,14 +47,14 @@
                     'Content-Type': 'application/json'
                 }
             })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.status==="success") {
-                    window.location.href = '/';
-                } else {
-                    alert(data.message);
-                }
-            });
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status === "success") {
+                        window.location.href = '/';
+                    } else {
+                        alert(data.message);
+                    }
+                });
         }
     }
 

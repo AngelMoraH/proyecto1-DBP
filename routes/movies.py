@@ -1,17 +1,17 @@
 from flask import jsonify, request
 from configuration import db, sys
 from models.Movies import Movie
-from routes.likes import getLikesById
+#from routes.likes import getLikesById
 from . import routes
 
 
 @routes.route("/movies/")
 def getMovies():
     res = Movie.query.all()
-    for i in range(0,len(res)):
+    """for i in range(0,len(res)):
         likes=getLikesById(res[i].id)
         res[i].data["likes"]=likes
-    res= sorted(res, key=lambda x: x.data["likes"], reverse=True)
+    res= sorted(res, key=lambda x: x.data["likes"], reverse=True)"""
     return jsonify({"movies": [m.toJson() for m in res]})
 
 

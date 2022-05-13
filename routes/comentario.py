@@ -1,7 +1,6 @@
 from flask import jsonify, request
 from configuration import db, sys
 from models.comentario import Comentario
-from routes.likes import getLikesById
 from . import routes
 
 
@@ -9,9 +8,8 @@ from . import routes
 def getComentarios():
     res = Comentario.query.all()
     for i in range(0,len(res)):
-        likes=getLikesById(res[i].id)
-        res[i].data["likes"]=likes
-    print(sorted(res, key=lambda x: x.data["likes"], reverse=True))
+        res[i].data["likes"]=len(Comentario.query.filter_by(id=res[i].id).first().ilikes)
+    sorted(res, key=lambda x: x.data["likes"], reverse=True)
     return jsonify({"cometarios": [m.toJson() for m in res]})
 
 

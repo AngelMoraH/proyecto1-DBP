@@ -21,10 +21,7 @@
 <p>INDEX</p>
 {{user}}
 <hr>
-{{movies}}
-<ul>
-    <li>prueba</li>
-</ul>
+
 <div id="container-movies">
 
 </div>
@@ -34,6 +31,7 @@
 <script>
     var likes;
     var userID = "{{user.id}}";
+    
     listMoviesUI = document.getElementById('container-movies');
     const showMovies = async () => {
         listMoviesUI.innerHTML = '';
@@ -41,12 +39,12 @@
         const movies = await response.json();
         movies.movies.forEach(movie => {
             listMoviesUI.innerHTML += `
-            <div id="${movie.id}" class="container-movie" onclick="showMovie(${movie.id})">
+            <div id="${movie.id}" class="container-movie" >
                 <h3>${movie.data['nombre']}</h3>
                 <img style="width:30px" src="${movie.data['imagenURL']}" alt="logo">
                 <p>${movie.data['fechaEstreno']}</p>
                 <p class="movielike">${movie.data['likes']}</p>
-                <button onclick="validateLike(${movie.id},${userID},${movie.data['likes']})">Like</button>
+                <button onclick="validateLike(${movie.id},${movie.data['likes']})">Like</button>
             </div>
             `
         });
@@ -80,13 +78,14 @@
         const message = response;
         return message;
     }
-    const validateLike = async (id, idUser,like) => {
-        if (userID.length==0){
+    const validateLike = async (id,like) => {
+
+        if (userID==''){
             alert('Debes iniciar sesión para poder darle like');
         }else{
-            var rMessage = await addLikesMovies(id, idUser);
+            var rMessage = await addLikesMovies(id, userID);
             if (rMessage.message == "like ya existe") {
-                var reMessage = await removeLikeMovies(id, idUser);
+                var reMessage = await removeLikeMovies(id, userID);
                 document.getElementById(id).querySelector('.movielike').innerHTML--;
             }else{
                 document.getElementById(id).querySelector('.movielike').innerHTML ++;

@@ -1,44 +1,27 @@
 from flask import jsonify, request
 from configuration import db, sys
-from models.Likes import Likes
+from models.User import User
+from models.comentario import Comentario
 from . import routes
 
 
-@routes.route("/likes/<int:commentID>/")
-def getLikesById(commentID):
-    try:
-        res = Likes.query.all()
-        totalLikes = 0
-        for like in res:
-            if like.data["idComment"] == commentID:
-                totalLikes += 1
-    except Exception as e:
-        print(e)
-        print(sys.exc_info())
-
-    return totalLikes
-
-
-@routes.route("/likes/", methods=["POST"])
-def addLike():
-    response = {}
+@routes.route("/likes/<int:idComment>/<int:idUser>", methods=["POST"])
+def addLike(idComment, idUser):
     message = ""
     try:
-        res = Likes.query.all()
-        request_data = request.get_json()
-        for like in res:
-            if (
-                like.data["idComment"] == request.get_json()["data"]["idComment"]
-                and like.data["idUsuario"] == request.get_json()["data"]["idUsuario"]
-            ):
-                message = "like ya existe"
-                break
-
+        comentario = Comentario.query.filter_by(id=idComment).first()
+        print(comentario)
+        if comentario!=None:
+            for i in comentario.ilikes:
+                if idUser==i.id:
+                    message = "like ya existe"
+                    print('igual')
+                    break
+        
         if message == "":
-            like = Likes(data=request_data["data"])
-            db.session.add(like)
+            user=User.query.filter_by(id=idUser).first()
+            comentario.ilikes.append(user)
             db.session.commit()
-            response = like.toJson()
             message = "like agregado con exito"
     except Exception as e:
         print(e)
@@ -47,22 +30,21 @@ def addLike():
         db.session.rollback()
     finally:
         db.session.close()
-    return jsonify({"message": message, "response": response})
+    return jsonify({"message": message})
 
 
-@routes.route("/likes/<int:commentID>/<int:userID>", methods=["DELETE"])
-def removeLike(commentID, userID):
+@routes.route("/likes/<int:idComment>/<int:idUser>", methods=["DELETE"])
+def removeLike(idComment, idUser):
     message="like eliminada con exito"
     try:
-        res = Likes.query.all()
-        likeId = 0
-        for like in res:
-            if like.data["idComment"] == commentID and like.data["idUsuario"] == userID:
-                likeId = like.id
+        comentario = Comentario.query.filter_by(id=idComment).first()
+        print(comentario.ilikes)
+        for like in comentario.ilikes:
+            if idUser==like.id:
+                comentario.ilikes.remove(like)
+                db.session.commit()
                 break
-        like = Likes.query.filter_by(id=likeId).first()
-        db.session.delete(like)
-        db.session.commit()
+        print(comentario.ilikes)
     except Exception as e:
         print(e)
         print(sys.exc_info())
