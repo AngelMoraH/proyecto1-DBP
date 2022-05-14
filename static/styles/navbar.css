@@ -1,12 +1,10 @@
-nav {
-    background-color: #fb4;
+.nav {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    padding: 0px 10px;
-    height:3rem;
-}
+  
+    max-width: 992px;
+    margin: 0 auto;
+  }
 
 nav ul{
     display: flex;
