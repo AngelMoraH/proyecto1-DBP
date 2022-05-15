@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block body %}
-
+<p></p>
 
 <hr>
 
@@ -28,11 +28,11 @@ display:block; left:0;">
 <ol class = "bigbox">
     <li class = "rbox">
         <div class = "littlebox">
-            <h1 style = "color:#F8F8FF";>Bienvenido a Horrorpedia {{user['userName']}} </h1> 
+            <h1 style = "color:#F8F8FF";>BIENVENIDO A HORRORPEDIA </h1> 
         </div>
         <ol>
             <li class = "foro2">
-                <div class = "chopsito" >
+                <div class = "chop" >
                     <br>
                 <h2>Qué es Horrorpedia?
                 </h2>
@@ -42,7 +42,8 @@ display:block; left:0;">
             </li>
             <li class = "foro2">
                 <div class = "div">
-                    Horrorpedia es un foro dedicado a los amantes del cine terrorífico. Aqui podrás ver las puntuaciones y comentarios de las ultimas peliculas de terror que se estrenaron. Explora HorrorPedia para saber cuales son las mejores peliculas de horror!
+                    Horrorpedia es un foro en el que podrás encontrar historias inéditas y fantásticas.
+                    En esta pagina no buscamos probar verdades tras las curiosidades y/o acontecimientos siniestros de la historia y el mundo contemporáneo. Verdadero o falso, verídico o desmentido, su objetivo primordial es solo entretener a la gente.
     
                 </div>
 
@@ -68,9 +69,8 @@ display:block; left:0;">
 
             <li class = foro2>
     
-
             </li>
-            <li></li>
+           
         </ol>
 
     </li>   
@@ -84,17 +84,9 @@ display:block; left:0;">
 
 </div>
 
-
-
 {% endblock %}
 
 {% block customJS %}
-
-<br>
-<br>
-<br>
-<br>
-
 
 <script>
     var likes;
@@ -113,8 +105,13 @@ display:block; left:0;">
                 <h3 class = "littlebox" >${movie.data['nombre']}</h3>
                 <img style="width:200px" src="${movie.data['imagenURL']}" alt="logo">
                 <h2 class = "littlebox">${movie.data['fechaEstreno']}</h2>
+<<<<<<< HEAD
                 <p class="littlebox">${movie.data['calificacion']}</p>
                 <a class="button" href="/movie/${movie.id}/">Explorar detalles</a>
+=======
+                <p class="littlebox">${movie.data['likes']}</p>
+                <button onclick="validateLike(${movie.id},${movie.data['likes']})">Like</button>
+>>>>>>> 1ea8429e6e875c964e1abfc70a437edcc72bef36
             </div>
             `
         });
