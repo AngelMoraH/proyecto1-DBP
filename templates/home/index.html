@@ -105,13 +105,8 @@ display:block; left:0;">
                 <h3 class = "littlebox" >${movie.data['nombre']}</h3>
                 <img style="width:200px" src="${movie.data['imagenURL']}" alt="logo">
                 <h2 class = "littlebox">${movie.data['fechaEstreno']}</h2>
-<<<<<<< HEAD
                 <p class="littlebox">${movie.data['calificacion']}</p>
                 <a class="button" href="/movie/${movie.id}/">Explorar detalles</a>
-=======
-                <p class="littlebox">${movie.data['likes']}</p>
-                <button onclick="validateLike(${movie.id},${movie.data['likes']})">Like</button>
->>>>>>> 1ea8429e6e875c964e1abfc70a437edcc72bef36
             </div>
             `
         });
