@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <th>Angel Gabriel Mucha Huaman</th>
-      <th>202110701</th>
+      <th>202110706</th>
       <th>Frontend</th>
     </tr>
     <tr>
