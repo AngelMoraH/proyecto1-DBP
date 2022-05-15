@@ -1,10 +1,13 @@
 {% extends './base.html' %}
 
 {% block title %}HorrorPedia{% endblock %}
-
-
-
-
+{% block customCSS %}
+<style>
+    li p{
+        color: #fff;
+    }
+</style>
+{% endblock %}
 {% block body %}
 <div>
     <div class="rbox">
@@ -18,40 +21,130 @@
     <form id="form">
         <input type="text" name="comentario" id="comentario">
         <input type="submit" value="Create">
-
     </form>
+    <ul id="lista-comentarios" class="lista-comentarios"></ul>
 </div>
 
-<p>INDEX</p>
 {% endblock %}
 {% block customJS %}
 <script>
-    //<button onclick="addCommentario()" >add</button>
     const comentarioInput = document.getElementById('comentario');
+    const listaComentarios = document.getElementById('lista-comentarios');
     userID = "{{idUser}}";
     movieID = "{{movie.id}}";
     
     document.getElementById('form').onsubmit = function (e) {
         e.preventDefault();
-        const comentario = comentarioInput.value;
-        fetch('/comentario/', {
-            method: "POST",
-            body: JSON.stringify({
-                data:{
-                    "comentario": comentario,
-                    "idUser": parseInt(userID),
-                    "idMovie": parseInt(movieID),
+        if (userID==''){
+            alert('Debes iniciar sesión para poder hacer un comentario');
+        }else {
+            const comentario = comentarioInput.value;
+            fetch('/comentario/', {
+                method: "POST",
+                body: JSON.stringify({
+                    data:{
+                        "comentario": comentario,
+                        "idUser": parseInt(userID),
+                        "idMovie": parseInt(movieID),
+                        "dateCreated": Date.now()
+                    }
+                }),
+                headers: {
+                    'Content-Type': 'aplication/json'
                 }
-            }),
-            headers: {
-                'Content-Type': 'aplication/json'
-            }
-        }).then(function (response) {
-            return response.json();
-        }).then(function (jsonResponse) {
-            console.log("jsonResponse: ", jsonResponse);
-        }).catch(error => console.error("Error message aaaaaaaaaaaaaaa:", error));
+            }).then(function (response) {
+                return response.json();
+            }).then(function (jsonResponse) {
+                listaComentarios.innerHTML += `
+                <li id=${jsonResponse.response['id']}>
+                    <p>${jsonResponse.response['data']['comentario']}</p>
+                    <p>${jsonResponse.response['data']['dateCreated']}</p>
+                    <p class='comentariolike'>0</p>
+                    <button onclick="validateLike(${jsonResponse.response['id']},${jsonResponse.response['data']["likes"]})">like</button>
+                    <button onclick="deleteComentario(${jsonResponse.response['id']})">Delete</button>
+                </li>
+                `
+                console.log("jsonResponse: ", jsonResponse.response['data']);
+            }).catch(error => console.error("Error", error));
+        }
 
     }
+
+    const addLikesMovies = async (id, idUser) => {
+        const response = await fetch(`/likes/${id}/${idUser}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const message = response.json();
+        return message;
+    }
+
+    const removeLikeMovies = async (id, idUser) => {
+        const response = await fetch(`/likes/${id}/${idUser}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const message = response;
+        return message;
+    }
+    const validateLike = async (id,like) => {
+        if (userID==''){
+            alert('Debes iniciar sesión para poder darle like');
+        }else{
+            var rMessage = await addLikesMovies(id, userID);
+            if (rMessage.message == "like ya existe") {
+                var reMessage = await removeLikeMovies(id, userID);
+                document.getElementById(id).querySelector('.comentariolike').innerHTML--;
+            }else{
+                document.getElementById(id).querySelector('.comentariolike').innerHTML ++;
+            }
+        }
+    }
+
+    const deleteComentario = (id) =>{
+        if (userID==''){
+            alert('Debes iniciar sesión para poder eliminar el comentario');
+        }else{
+            fetch(`/comentario/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                return response.json();
+            }).then(function (jsonResponse) {
+                console.log(jsonResponse.message);
+                if (jsonResponse.message != "usuario no autorizado"){
+                    document.getElementById(id).remove();
+                }else{
+                    alert('No tiene permiso para eliminar este comentario');
+                }
+                
+            }).catch(error => console.error("Error", error));
+        }
+    }
+
+
+    const showComentarios = async () => {
+        listaComentarios.innerHTML = '';
+        const response = await fetch(`/comentario/${movieID}`)
+        const comentarios = await response.json();
+        comentarios.comentarios.forEach(comentario => {
+            listaComentarios.innerHTML += `
+            <li id=${comentario.id}>
+                <p>${comentario.data['comentario']}</p>
+                <p>${comentario.data['dateCreated']}</p>
+                <p class='comentariolike'>${comentario.data["likes"]}</p>
+                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">like</button>
+                <button onclick="deleteComentario(${comentario.id})">Delete</button>
+            </li>
+            `
+        });
+    }
+    document.addEventListener('DOMContentLoaded', showComentarios);
 </script>
 {% endblock %}

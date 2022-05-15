@@ -1,5 +1,4 @@
-from email import message
-from flask import render_template, session
+from flask import redirect, render_template, session
 import json
 from models import comentario
 from routes.__init__ import routes
@@ -13,16 +12,20 @@ def home():
     user={'id':'','userName':'','email':'','password':'','dateCreated':''}
     if "user" in session:
         user=session["user"]
+    
     return render_template("home/index.html", user=user)
 
-@routes.route("/movie/<int:idMovie>/<int:idUser>")
-def infoMovie(idMovie,idUser):
-    return render_template("home/movie.html", movie=Movie.query.get(idMovie).toJson(),idUser=idUser)
+@routes.route("/movie/<int:idMovie>/")
+def infoMovie(idMovie):
+    user={'id':'','userName':'','email':'','password':'','dateCreated':''}
+    if "user" in session:
+        user=session["user"]
+    return render_template("home/movie.html", movie=Movie.query.get(idMovie).toJson(),idUser=user['id'])
 
 
 
 @routes.route("/add/movies")
-def moviess():
+def agregarmoviesJSON():
     movies=dict()
     message=""
     try:

@@ -114,57 +114,12 @@ display:block; left:0;">
                 <img style="width:200px" src="${movie.data['imagenURL']}" alt="logo">
                 <h2 class = "littlebox">${movie.data['fechaEstreno']}</h2>
                 <p class="littlebox">${movie.data['calificacion']}</p>
-                <a class="button" href="/movie/${movie.id}/${userID}">Explorar detalles</a>
+                <a class="button" href="/movie/${movie.id}/">Explorar detalles</a>
             </div>
             `
         });
     }
 
-    const addLikesMovies = async (id, idUser) => {
-        const response = await fetch(`/likes/`, {
-            method: 'POST',
-            body: JSON.stringify({
-                data: {
-                    "idComment": id,
-                    "idUsuario": idUser,
-                    "dateCreated": Date.now()
-                }
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const message = response.json();
-        return message;
-    }
-
-    const removeLikeMovies = async (id, idUser) => {
-        const response = await fetch(`/likes/${id}/${idUser}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const message = response;
-        return message;
-    }
-    const validateLike = async (id,like) => {
-
-        if (userID==''){
-            alert('Debes iniciar sesión para poder darle like');
-        }else{
-            var rMessage = await addLikesMovies(id, userID);
-            if (rMessage.message == "like ya existe") {
-                var reMessage = await removeLikeMovies(id, userID);
-                document.getElementById(id).querySelector('.movielike').innerHTML--;
-            }else{
-                document.getElementById(id).querySelector('.movielike').innerHTML ++;
-            }
-        }
-    }
-    const showMovie = (id) => {
-        window.location.href = `/movie/${id}`;
-    }
     document.addEventListener('DOMContentLoaded', showMovies);
 
 </script>
