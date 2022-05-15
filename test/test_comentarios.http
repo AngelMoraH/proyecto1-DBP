@@ -11,23 +11,25 @@ Content-Type: application/json
 {
     "data": {
         "comentario": "Hola",
-        "idUser":1
+        "idUser":1,
+        "idMovie":1
     }
 }
 
 ###
 ## ACTUALIZAR UN COMENTARIO
-PUT http://127.0.0.1:5000/comentario/4
+PUT http://127.0.0.1:5000/comentario/5
 Content-Type: application/json
 
 {
     "data": {
         "comentario": "Hola",
-        "idUser":4
+        "idUser":4,
+        "idMovie":4
     }
 }
 
 ###
 ## ELIMINAR UN COMENTARIO
-DELETE http://127.0.0.1:5000/comentario/4
+DELETE http://127.0.0.1:5000/comentario/5
 Accept: application/json

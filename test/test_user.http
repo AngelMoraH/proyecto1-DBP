@@ -1,0 +1,26 @@
+###
+## LOGIN DE UN USUARIO
+POST http://127.0.0.1:5000/login/
+content-type: application/json
+
+{
+    "email": "angel456mora123@gmail.com",
+    "password": "ANGELmora123"
+}
+
+
+###
+## REGISTER DE UN USUARIO
+POST http://127.0.0.1:5000/register
+content-type: application/json
+
+{
+    "userName": "angel123",
+    "email": "angel123mora456@gmail.com",
+    "password": "ANGELmora123"
+}
+
+###
+## LOGOUT DE UN USUARIO
+POST http://127.0.0.1:500/logout
+content-type: application/json

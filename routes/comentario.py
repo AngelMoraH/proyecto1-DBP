@@ -1,6 +1,5 @@
-from flask import jsonify, request,abort,render_template
+from flask import jsonify, request,abort
 from configuration import db
-from models import comentario
 from models.comentario import Comentario
 from . import routes
 import http
@@ -11,6 +10,7 @@ def getComentarios():
     status_code=0
     res = Comentario.query.all()
     for i in range(0,len(res)):
+        print(Comentario.query.filter_by(id=res[i].id).first().ilikes)
         res[i].data["likes"]=len(Comentario.query.filter_by(id=res[i].id).first().ilikes)
     sorted(res, key=lambda x: x.data["likes"], reverse=True)
     status_code =http.HTTPStatus.ACCEPTED
@@ -23,8 +23,16 @@ def createComentario():
     message = ""
     status_code=0
     try:
-        request_data = request.get_json()
-        comentario = Comentario(data=request_data["data"])
+        request_data = request.get_data().decode('utf-8')
+        data1=request_data[9:len(request_data)-2].split(",")
+        for i in range(0,len(data1)):
+            data1[i]=data1[i].split(":")
+        resDATA={
+            data1[0][0][1:len(data1[0][0])-1]:data1[0][1][1:len(data1[0][1])-1],
+            data1[1][0][1:len(data1[1][0])-1]:int(data1[1][1]),
+            data1[2][0][1:len(data1[2][0])-1]:int(data1[2][1])
+        }
+        comentario = Comentario(data=resDATA)
         db.session.add(comentario)
         db.session.commit()
         response = comentario.toJson()

@@ -114,8 +114,7 @@ display:block; left:0;">
                 <img style="width:200px" src="${movie.data['imagenURL']}" alt="logo">
                 <h2 class = "littlebox">${movie.data['fechaEstreno']}</h2>
                 <p class="littlebox">${movie.data['calificacion']}</p>
-                <button onclick="validateLike(${movie.id},${movie.data['likes']})">Like</button>
-                <a class="button" href="/movie/${movie.id}">Explorar detalles</a>
+                <a class="button" href="/movie/${movie.id}/${userID}">Explorar detalles</a>
             </div>
             `
         });

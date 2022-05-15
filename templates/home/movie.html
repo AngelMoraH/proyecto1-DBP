@@ -7,17 +7,18 @@
 
 {% block body %}
 <div>
-    <div  class="rbox" >
-        <h3 class = "littlebox" >{{movie.data['nombre']}}</h3>
-        <img style="width: 200px;" src="{{movie.data['imagenURL']}}" alt="logo" >
+    <div class="rbox">
+        <h3 class="littlebox">{{movie.data['nombre']}}</h3>
+        <img style="width: 200px;" src="{{movie.data['imagenURL']}}" alt="logo">
         <p class="littlebox">{{movie.data['description']}}</p>
-        <h2 class = "littlebox">{{movie.data['fechaEstreno']}}</h2>
+        <h2 class="littlebox">{{movie.data['fechaEstreno']}}</h2>
         <p class="littlebox">{{movie.data['calificacion']}}</p>
     </div>
-    
-    <form id="form" action="/comentario/" method="POST">
+
+    <form id="form">
         <input type="text" name="comentario" id="comentario">
         <input type="submit" value="Create">
+
     </form>
 </div>
 
@@ -25,23 +26,32 @@
 {% endblock %}
 {% block customJS %}
 <script>
+    //<button onclick="addCommentario()" >add</button>
     const comentarioInput = document.getElementById('comentario');
-            document.getElementById('form').onsubmit = function(e) {
-                e.preventDefault();
-                const comentario = comentarioInput.value;
-                fetch('/comentario/',{
-                    method: 'POST',
-                    body: JSON.stringify({
-                        'comentario':comentario
-                    }),
-                    headers:{
-                        'Content-Type':'aplication/json'
-                    }
-                }).then(function(response){
-                    return response.json();
-                }).then(function(jsonResponse){
-                    console.log("jsonResponse: ", jsonResponse);
-                });
+    userID = "{{idUser}}";
+    movieID = "{{movie.id}}";
+    
+    document.getElementById('form').onsubmit = function (e) {
+        e.preventDefault();
+        const comentario = comentarioInput.value;
+        fetch('/comentario/', {
+            method: "POST",
+            body: JSON.stringify({
+                data:{
+                    "comentario": comentario,
+                    "idUser": parseInt(userID),
+                    "idMovie": parseInt(movieID),
+                }
+            }),
+            headers: {
+                'Content-Type': 'aplication/json'
             }
+        }).then(function (response) {
+            return response.json();
+        }).then(function (jsonResponse) {
+            console.log("jsonResponse: ", jsonResponse);
+        }).catch(error => console.error("Error message aaaaaaaaaaaaaaa:", error));
+
+    }
 </script>
 {% endblock %}

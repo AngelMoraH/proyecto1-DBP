@@ -15,9 +15,9 @@ def home():
         user=session["user"]
     return render_template("home/index.html", user=user)
 
-@routes.route("/movie/<int:id>")
-def infoMovie(id):
-    return render_template("home/movie.html", movie=Movie.query.get(id).toJson())
+@routes.route("/movie/<int:idMovie>/<int:idUser>")
+def infoMovie(idMovie,idUser):
+    return render_template("home/movie.html", movie=Movie.query.get(idMovie).toJson(),idUser=idUser)
 
 
 
