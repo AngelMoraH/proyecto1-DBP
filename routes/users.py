@@ -42,12 +42,14 @@ def register():
             db.session.commit()
             response['user']=user.toJson()
             response['status']="success"
+            response['status_code']=200
             response['message']="Usuario agregado con exito"
         except Exception as e:
             print(e)
             print(sys.exc_info())
             db.session.rollback()
             response['status']="no success"
+            response['status_code']=404
             response['message']=e
         finally:
             db.session.close()

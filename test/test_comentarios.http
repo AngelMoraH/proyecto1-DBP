@@ -1,0 +1,33 @@
+###
+## OBTENER TODAS LAS PELICULAS
+GET http://127.0.0.1:5000/comentario/
+Accept: application/json
+
+###
+## AGREGAR UN COMENTARIO
+POST http://127.0.0.1:5000/comentario/
+Content-Type: application/json
+
+{
+    "data": {
+        "comentario": "Hola",
+        "idUser":1
+    }
+}
+
+###
+## ACTUALIZAR UN COMENTARIO
+PUT http://127.0.0.1:5000/comentario/4
+Content-Type: application/json
+
+{
+    "data": {
+        "comentario": "Hola",
+        "idUser":4
+    }
+}
+
+###
+## ELIMINAR UN COMENTARIO
+DELETE http://127.0.0.1:5000/comentario/4
+Accept: application/json

@@ -1,22 +1,25 @@
-from flask import jsonify, request
-from configuration import db, sys
+from flask import jsonify, request,abort
+from configuration import db
 from models.comentario import Comentario
 from . import routes
-
+import http
 
 @routes.route("/comentario/")
 def getComentarios():
+    status_code=0
     res = Comentario.query.all()
     for i in range(0,len(res)):
         res[i].data["likes"]=len(Comentario.query.filter_by(id=res[i].id).first().ilikes)
     sorted(res, key=lambda x: x.data["likes"], reverse=True)
-    return jsonify({"cometarios": [m.toJson() for m in res]})
+    status_code =http.HTTPStatus.ACCEPTED
+    return jsonify({"cometarios": [m.toJson() for m in res],"status_code":status_code})	
 
 
 @routes.route("/comentario/", methods=["POST"])
 def createComentario():
     response = {}
     message = ""
+    status_code=0
     try:
         request_data = request.get_json()
         comentario = Comentario(data=request_data["data"])
@@ -24,47 +27,49 @@ def createComentario():
         db.session.commit()
         response = comentario.toJson()
         message = "comentario agregado con exito"
+        status_code =http.HTTPStatus.ACCEPTED
     except Exception as e:
         print(e)
-        print(sys.exc_info())
-        message = e
         db.session.rollback()
-        pass
+        status_code =http.HTTPStatus.INTERNAL_SERVER_ERROR
+        abort(status_code)
     finally:
         db.session.close()
-    return jsonify({"message": message, "response": response})
+    return jsonify({"message": message, "response": response, "status_code": status_code})
 
-@routes.route("/movies/<int:commentID>", methods=["PUT"])
+@routes.route("/comentario/<int:commentID>", methods=["PUT"])
 def updateComentario(commentID):
     message=""
+    status_code=0
     try:
-        comentario=Comentario.query.filter_by(id=commentID).first()
-        nComentario = Comentario.query.filter_by(id=commentID).update(dict(data=comentario.data))
+        comentarioDATA=request.get_json()["data"]
+        nComentario = Comentario.query.filter_by(id=commentID).update(dict(data=comentarioDATA))
         db.session.commit()
         message='like de Comentario actualizado con exito'
     except Exception as e:
         print(e)
-        print(sys.exc_info())
-        message=e
         db.session.rollback()
+        status_code =http.HTTPStatus.INTERNAL_SERVER_ERROR
+        abort(status_code)
     finally:
         db.session.close()
-    return jsonify({"message":message})
+    return jsonify({"message":message,'status_code':status_code})
 
-@routes.route("/movies/<int:commentID>", methods=["DELETE"])
+@routes.route("/comentario/<int:commentID>", methods=["DELETE"])
 def deleteComentario(commentID):
     message = ""
+    status_code=0
     try:
         comentario = Comentario.query.filter_by(id=commentID).first()
         db.session.delete(comentario)
         db.session.commit()
         message = "comentario eliminada con exito"
+        status_code = http.HTTPStatus.ACCEPTED
     except Exception as e:
-        print(e)
-        print(sys.exc_info())
-        message = e
         db.session.rollback()
+        status_code = http.HTTPStatus.INTERNAL_SERVER_ERROR
+        abort(status_code)
     finally:
         db.session.close()
 
-    return jsonify({"message": message})
+    return jsonify({"message": message,'status_code':status_code})

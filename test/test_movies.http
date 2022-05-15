@@ -1,0 +1,46 @@
+###
+## OBTENER UNA PELICULA POR SU ID
+GET http://127.0.0.1:5000/movies/42
+Accept: application/json
+
+###
+## OBTENER TODAS LAS PELICULAS
+GET http://127.0.0.1:5000/movies/
+Accept: application/json
+
+###
+## AGREGAR UNA PELICULA A LA BASE DE DATOS
+POST http://127.0.0.1:5000/movies/
+content-type: application/json
+
+{
+    "data":{
+            "nombre": "Virus:34",
+            "imagenURL": "https://www.themoviedb.org/t/p/original/wZiF79hbhLK1U2Pj9bF67NAKXQR.jpg",
+            "fechaEstreno": "2021-04-21",
+            "description": "rus is unleashed and a chilling massacre runs through the streets of Montevideo.",
+            "calificacion": 6.8,
+            "dateCreated": "2023-05-05 09:24"
+    }
+}
+
+###
+## ACTUALIZAR UNA PELICULA A LA BASE DE DATOS
+PUT http://127.0.0.1:5000/movies/46
+content-type: application/json
+
+{
+    "data":{
+            "nombre": "Virus:200",
+            "imagenURL": "htb.org/t/p/original/wZiF79hbhLK1U2Pj9bF67NAKXQR.jpg",
+            "fechaEstreno": "20-04-21",
+            "description": "ruthrough the streets of Montevideo.",
+            "calificacion": 9.0,
+            "dateCreated": "2023-05-05 09:24"
+    }
+}
+
+###
+## ELIMINAR UNA PELICULA DE LA BASE DE DATOS
+DELETE http://127.0.0.1:5000/movies/47
+Accept: application/json

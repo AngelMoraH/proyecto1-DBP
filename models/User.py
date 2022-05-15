@@ -12,6 +12,8 @@ class User(db.Model):
     password = db.Column(db.String(), nullable=False)
     dateCreated = db.Column(db.DateTime, nullable=False)
     gustar = db.relationship("Comentario",secondary=like_user_comentario,back_populates="ilikes",lazy=True)
+    
+    
     def __repr__(self):
         return str(
             {
