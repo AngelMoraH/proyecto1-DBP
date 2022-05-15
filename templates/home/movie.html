@@ -6,6 +6,42 @@
 
 
 {% block body %}
+<div>
+    <div  class="rbox" >
+        <h3 class = "littlebox" >{{movie.data['nombre']}}</h3>
+        <img style="width: 200px;" src="{{movie.data['imagenURL']}}" alt="logo" >
+        <p class="littlebox">{{movie.data['description']}}</p>
+        <h2 class = "littlebox">{{movie.data['fechaEstreno']}}</h2>
+        <p class="littlebox">{{movie.data['calificacion']}}</p>
+    </div>
+    
+    <form id="form" action="/comentario/" method="POST">
+        <input type="text" name="comentario" id="comentario">
+        <input type="submit" value="Create">
+    </form>
+</div>
+
 <p>INDEX</p>
-{{movie}}
+{% endblock %}
+{% block customJS %}
+<script>
+    const comentarioInput = document.getElementById('comentario');
+            document.getElementById('form').onsubmit = function(e) {
+                e.preventDefault();
+                const comentario = comentarioInput.value;
+                fetch('/comentario/',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'comentario':comentario
+                    }),
+                    headers:{
+                        'Content-Type':'aplication/json'
+                    }
+                }).then(function(response){
+                    return response.json();
+                }).then(function(jsonResponse){
+                    console.log("jsonResponse: ", jsonResponse);
+                });
+            }
+</script>
 {% endblock %}

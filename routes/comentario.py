@@ -1,8 +1,10 @@
-from flask import jsonify, request,abort
+from flask import jsonify, request,abort,render_template
 from configuration import db
+from models import comentario
 from models.comentario import Comentario
 from . import routes
 import http
+
 
 @routes.route("/comentario/")
 def getComentarios():

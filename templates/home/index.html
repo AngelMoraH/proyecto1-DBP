@@ -18,12 +18,8 @@
 {% endblock %}
 
 {% block body %}
-<p>INDEX</p>
-<<<<<<< HEAD
-{{user}}
-=======
-Bienvenid 
->>>>>>> a0bd0ae (actualizacion templates)
+
+
 <hr>
 
 
@@ -32,11 +28,7 @@ display:block; left:0;">
 <ol class = "bigbox">
     <li class = "rbox">
         <div class = "littlebox">
-<<<<<<< HEAD
-            <h1 style = "color:#F8F8FF";>Bienvenido a Horrorpedia </h1> 
-=======
             <h1 style = "color:#F8F8FF";>Bienvenido a Horrorpedia {{user['userName']}} </h1> 
->>>>>>> a0bd0ae (actualizacion templates)
         </div>
         <ol>
             <li class = "foro2">
@@ -50,8 +42,7 @@ display:block; left:0;">
             </li>
             <li class = "foro2">
                 <div class = "div">
-                    Horrorpedia es un foro en el que podrás encontrar historias inéditas y fantásticas.
-                    En esta pagina no buscamos probar verdades tras las curiosidades y/o acontecimientos siniestros de la historia y el mundo contemporáneo. Verdadero o falso, verídico o desmentido, su objetivo primordial es solo entretener a la gente.
+                    Horrorpedia es un foro dedicado a los amantes del cine terrorífico. Aqui podrás ver las puntuaciones y comentarios de las ultimas peliculas de terror que se estrenaron. Explora HorrorPedia para saber cuales son las mejores peliculas de horror!
     
                 </div>
 
@@ -122,8 +113,9 @@ display:block; left:0;">
                 <h3 class = "littlebox" >${movie.data['nombre']}</h3>
                 <img style="width:200px" src="${movie.data['imagenURL']}" alt="logo">
                 <h2 class = "littlebox">${movie.data['fechaEstreno']}</h2>
-                <p class="littlebox">${movie.data['likes']}</p>
+                <p class="littlebox">${movie.data['calificacion']}</p>
                 <button onclick="validateLike(${movie.id},${movie.data['likes']})">Like</button>
+                <a class="button" href="/movie/${movie.id}">Explorar detalles</a>
             </div>
             `
         });

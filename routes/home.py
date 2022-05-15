@@ -1,6 +1,7 @@
 from email import message
 from flask import render_template, session
 import json
+from models import comentario
 from routes.__init__ import routes
 from models.Movies import Movie
 from configuration import db

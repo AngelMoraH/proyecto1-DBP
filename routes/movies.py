@@ -1,5 +1,5 @@
 import http
-from flask import jsonify, request,abort
+from flask import jsonify, render_template, request,abort
 from configuration import db
 from models.Movies import Movie
 from . import routes
@@ -9,7 +9,6 @@ from . import routes
 def getMovies():
     res = Movie.query.all()
     return jsonify({"movies": [m.toJson() for m in res]})
-
 
 
 @routes.route("/movies/<int:movieID>")
