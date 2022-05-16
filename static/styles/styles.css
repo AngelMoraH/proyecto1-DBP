@@ -500,7 +500,31 @@ solid rgb(198, 198, 198);
 
 
 
-
+.mexbox{
+    -webkit-text-size-adjust: 100%;
+    font: 14px / 1.4 sans-serif;
+    font-family: 'Segoe UI','Helvetica Neue',Helvetica,Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans',sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    --node-grid-padding: 15px;
+    --grid-node-width: 380px;
+    --mobile-sticky-top: 0px;
+    --xenfocus-version: '2.1.1.1';
+    --responsive: 'Larger than responsiveWide';
+    --block-color: #13322B;
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: #141414;
+    background: #fefefe;
+    border: 1px solid #d0d1d2;
+    border-radius: 4px !important;
+    box-shadow: rgba(135,138,140,0.12) 0px 2px 2px,rgba(135,138,140,0.12) 0px 4px 10px;
+    border-width: 1px;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
 
 
 
