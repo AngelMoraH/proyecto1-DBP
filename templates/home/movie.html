@@ -18,19 +18,10 @@
         <p class="littlebox">Calificacion: {{movie.data['calificacion']}}</p>
     </div>
     <div class="area-comentar">
-<<<<<<< HEAD
         <form id="form" class="inputs-comentarios">
             <textarea name="" class="area-comentario" name="comentario" id="comentario"></textarea>
             <input type="submit" value="Create">
         </form>
-=======
-        <h2 text-align: left;> COMENTARIOS</h2>
-    <form id="form" class="inputs-comentarios">
-        <textarea name="" class="area-comentario" name="comentario" id="comentario"></textarea>
-        
-        <input class = "button" type="submit" value="Comentar">
-    </form>
->>>>>>> 8b3ed64309e5b4952e625212c37b947a8b2eac9a
     </div>
     <ul id="lista-comentarios" class="lista-comentarios"></ul>
 
@@ -147,20 +138,30 @@
     const showComentarios = async () => {
         listaComentarios.innerHTML = '';
         const response = await fetch(`/comentario/${movieID}`)
+        
         const comentarios = await response.json();
         comentarios.comentarios.forEach(comentario => {
-            listaComentarios.innerHTML += `
-            <div id=${comentario.id} class="comentario-usuario">
-            <li >
-                <div class="comentario">
-                <h2 >${comentario.data['comentario']}</h2>
+            fetch(`/getUser/${comentario.data['idUser']}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response=>response.json()).then(user=>{
+                console.log(user.user.id);
+                listaComentarios.innerHTML += `
+                <div id=${comentario.id} class="comentario-usuario">
+                <li >
+                    <h2>${user.user.userName}</h2>
+                    <div class="comentario">
+                    <h2 >${comentario.data['comentario']}</h2>
+                    </div>
+                    <h2 >Creado el dia ${comentario.data['dateCreated']}</h2>
+                    <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">likes</button><h2 class="comentariolike">${comentario.data["likes"]} </h2>
+                    <button onclick="deleteComentario(${comentario.id})">Delete</button>
+                </li>
                 </div>
-                <h2 >Creado el dia ${comentario.data['dateCreated']}</h2>
-                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">likes</button><h2 class="comentariolike">${comentario.data["likes"]} </h2>
-                <button onclick="deleteComentario(${comentario.id})">Delete</button>
-            </li>
-            </div>
-            `
+                `
+            });
         });
     }
 

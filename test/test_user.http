@@ -1,6 +1,6 @@
 ###
 ## OBTENER USUARIO POR SU ID
-GET http://127.0.0.1:5000/getUser/10
+GET http://127.0.0.1:5000/getUser/1
 
 
 ###
