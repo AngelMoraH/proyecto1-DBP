@@ -1,4 +1,5 @@
 import http
+import json
 from flask import jsonify, render_template, request,abort
 from configuration import db
 from models.Movies import Movie
@@ -9,6 +10,7 @@ from . import routes
 def getMovies():
     res = Movie.query.all()
     return jsonify({"movies": [m.toJson() for m in res]})
+
 
 
 @routes.route("/movies/<int:movieID>")
@@ -43,6 +45,39 @@ def createMovie():
     finally:
         db.session.close()
     return jsonify({"message": message, "response": response, "status_code": status_code})
+
+@routes.route("/add/movies")
+def agregarmoviesJSON():
+    movies=dict()
+    message=""
+    try:
+        with open('./movies.json', 'r') as f:
+            moviesJSON=json.load(f)
+            movies=moviesJSON['results']
+            
+        for movie in movies:
+            moviesDATA={
+            "nombre": movie['original_title'],
+            "imagenURL": f"https://www.themoviedb.org/t/p/original{movie['poster_path']}",
+            "fechaEstreno": movie["release_date"],
+            "description":movie['overview'],
+            "calificacion":movie['vote_average'],
+            "dateCreated":"2022-05-05 09:24"
+            }
+            movie=Movie(data=moviesDATA)
+            db.session.add(movie)
+            db.session.commit()
+        message="Movies agregados con exito"
+
+    except Exception as e:
+        message=e
+        db.session.rollback()
+    finally:
+        db.session.close()
+    return jsonify({"message":message})
+
+
+
 
 @routes.route("/movies/<int:movieID>", methods=["PUT"])
 def updateMovie(movieID):
