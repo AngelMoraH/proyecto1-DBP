@@ -116,3 +116,14 @@ Las librerías utilizadas en el proyecto son:
   * **INTERNAL_SERVER_ERROR: 500**: Error interno del servidor.
   * **ACEPTED: 202**: El recurso ha sido aceptado.
   * **NOT_FOUND: 404**: El recurso solicitado no existe.
+  
+## Cómo ejecutar el sistema (Deployment scripts)
+* Es necesario crearse un entorno virtual, el comando es:
+  * **python -m venv nombre_del_entorno_virtual**
+* En el entorno virtual se debe de ejecutar el siguiente comando:
+  * **./nombre_del_entorno_virtual/Scripts/activate**
+* Una vez activado el entorno virtual se debe de ejecutar el siguiente comando:
+  * **pip install -r requirements.txt**
+  * con esto se instala todas las librerías necesarias para que corra la página web.
+* Para correr el sistema en el host local, se debe de ejecutar el siguiente comando:
+  * **python app.py**
