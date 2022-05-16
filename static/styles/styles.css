@@ -318,12 +318,7 @@ p {
     background-color: #BCBBC3 ;
     display: block;
     width: 100%;
-<<<<<<< HEAD
     border-radius: 15px;
-=======
-    padding:10px;
-    border-radius: 12px;
->>>>>>> 195a08287e6ed132ddd71db46ab14fc99c88ed12
     margin-bottom: .5rem;
     padding: 15px;
 }
