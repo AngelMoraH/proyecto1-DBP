@@ -25,6 +25,11 @@ content-type: application/json
 }
 
 ###
+## AGREGAR UNA PELICULA A LA BASE DE DATOS DESDE UN ARCHIVO JSON
+GET http://127.0.0.1/add/movies
+Content-Type: application/json
+
+###
 ## ACTUALIZAR UNA PELICULA A LA BASE DE DATOS
 PUT http://127.0.0.1:5000/movies/46
 content-type: application/json

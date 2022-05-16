@@ -6,7 +6,7 @@ import http
 from datetime import datetime
 
 @routes.route("/comentario/<int:movieID>")
-def getComentarios(movieID):
+def getComentario(movieID):
     status_code=0
     res = Comentario.query.all()
     for i in range(0,len(res)):

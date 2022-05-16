@@ -1,6 +1,6 @@
 ###
 ## OBTENER TODAS LAS PELICULAS
-GET http://127.0.0.1:5000/comentario/23
+GET http://127.0.0.1:5000/comentario/37
 Accept: application/json
 
 ###
@@ -31,5 +31,5 @@ Content-Type: application/json
 
 ###
 ## ELIMINAR UN COMENTARIO
-DELETE http://127.0.0.1:5000/comentario/30
+DELETE http://127.0.0.1:5000/comentario/37/1
 Accept: application/json

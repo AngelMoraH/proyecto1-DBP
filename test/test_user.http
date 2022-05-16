@@ -1,4 +1,9 @@
 ###
+## OBTENER USUARIO POR SU ID
+GET http://127.0.0.1:5000/getUser/1
+
+
+###
 ## LOGIN DE UN USUARIO
 POST http://127.0.0.1:5000/login/
 content-type: application/json
