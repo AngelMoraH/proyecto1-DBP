@@ -224,6 +224,7 @@ p{
 }
 
 .bigbox{
+    z-index:0;
     font: 13px/1.231 arial,helvetica,clean,sans-serif;
     text-size-adjust: 100%;
     font-family: Arial;
@@ -339,7 +340,7 @@ solid rgb(198, 198, 198);
   .nav {
     display: flex;
     justify-content: space-between;
-  
+    z-index:2;
     max-width: 992px;
     margin: 0 auto;
   }
@@ -443,6 +444,7 @@ solid rgb(198, 198, 198);
   
     .nav-menu_visible {
       left: 0;
+      z-index:2;
     }
   
     .nav-toggle:focus:not(:focus-visible) {
