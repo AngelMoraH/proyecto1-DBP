@@ -135,17 +135,15 @@
         listaComentarios.innerHTML = '';
         const response = await fetch(`/comentario/${movieID}`)
         const comentarios = await response.json();
-        
         comentarios.comentarios.forEach(comentario => {
             listaComentarios.innerHTML += `
             <div class="comentario-usuario">
             <li id=${comentario.id}>
                 <div class="comentario">
                 <h2 >${comentario.data['comentario']}</h2>
-                <h2 ></h2>
                 </div>
                 <h2 >Creado el dia ${comentario.data['dateCreated']}</h2>
-                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">likes ${comentario.data["likes"]}</button>
+                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">likes</button><h2 class="comentariolike">${comentario.data["likes"]} </h2>
                 <button onclick="deleteComentario(${comentario.id})">Delete</button>
             </li>
             </div>
