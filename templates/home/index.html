@@ -80,15 +80,13 @@ display:block; left:0;">
     </ol> 
 </ol>
 </div>
-
 <div id="container-movies">
 
 </div>
-
+<div></div>
 {% endblock %}
 
 {% block customJS %}
-
 <script>
     var likes;
     var userID = "{{user.id}}";
@@ -104,9 +102,23 @@ display:block; left:0;">
             listMoviesUI.innerHTML += `
             <div id="${movie.id}" class="rbox" >
                 <h3 class = "littlebox" >${movie.data['nombre']}</h3>
-                <img style="width:200px" src="${movie.data['imagenURL']}" alt="logo">
-                <h2 class = "littlebox">${movie.data['fechaEstreno']}</h2>
-                <p class="littlebox">${movie.data['calificacion']}</p>
+                <div class = "bloque">               
+                    <img style="width:200px" src="${movie.data['imagenURL']}" alt="logo">
+                    <div class = "mainnode">
+                        <div class = "bodynode">
+                            <div class = "statsnode">                            
+                                <h2>${movie.data['fechaEstreno']}</h2>    
+                                <p>Calificacion:  ${movie.data['calificacion']}</p>
+                            
+                                </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+               
                 <a class="button" href="/movie/${movie.id}/">Explorar detalles</a>
             </div>
             `
