@@ -11,6 +11,10 @@
     <script src="https://kit.fontawesome.com/4bf2b58ebf.js" crossorigin="anonymous"></script>
     {% block customCSS %}{% endblock %}
     <script defer src="{{ url_for('static', filename='js/index.js' ) }}"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
 </head>
 
 
@@ -19,8 +23,9 @@
       <div class="container">
             <div class="row align-items-center justify-content-between">
                <div class="logo nav-link">
-               <a href="/">HORRORPEDIA</a>
+                  <a class = "navfont" href="/"><h1 style="color:rgb(233, 233, 233)">HORRORPEDIA</h1></a>
                </div>
+           
                <input type="checkbox" id="nav-check">
                <label for="nav-check" class="nav-toggler">
                   <span></span>

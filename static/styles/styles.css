@@ -49,6 +49,7 @@ input[type="password"]{
     padding: 15px 20px;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
 }
 .button:hover{
     background-color: #83081C;
@@ -530,7 +531,12 @@ solid rgb(198, 198, 198);
 
 
 
+.navfont{
 
+    font-size: 80px;
+    font-family: 'Creepster', cursive;
+    color: #fff;
+}
 
 
 
@@ -762,6 +768,7 @@ solid rgb(198, 198, 198);
     padding: 10px;
 }
 .statsnode{
+    display: flex;
     -webkit-text-size-adjust: 100%;
     font: 14px / 1.4 sans-serif;
     font-family: 'Segoe UI','Helvetica Neue',Helvetica,Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans',sans-serif;
