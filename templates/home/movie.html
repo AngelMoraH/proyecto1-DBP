@@ -18,9 +18,8 @@
         <p class="littlebox">Calificacion: {{movie.data['calificacion']}}</p>
     </div>
     <div class="area-comentar">
-        <p >Deja tu comentario aqui</p>
     <form id="form" class="inputs-comentarios">
-        <textarea name="" class="area-comentario" name="comentario" id="comentario"></textarea>
+        <textarea name="" class="area-comentario" name="comentario" id="comentario" placeholder="Ingresa tu comentario"></textarea>
         <input class="botonenviar" type="submit" value="Comentar">
     </form>
     </div>
@@ -152,14 +151,13 @@
                 listaComentarios.innerHTML += `
                 <div id=${comentario.id} class="comentario-usuario">
                 <li >
-                    <h2>${user.user.userName}</h2>
+                    <h2>${user.user.userName}:</h2>
                     <div class="comentario">
                     <h2 >${comentario.data['comentario']}</h2>
                     </div>
                     <h2 >Creado el dia ${comentario.data['dateCreated']}</h2>
                     <div class="botonlike">
-                    <i class="fa-solid fa-heart"></i>
-                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">likes</button>
+                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})"><i class="fa-solid fa-heart"></i></button>
                 <h2 class="comentariolike">${comentario.data["likes"]} </h2>
                 <button onclick="deleteComentario(${comentario.id})">Delete</button>
                 </div>

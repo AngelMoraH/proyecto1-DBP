@@ -318,8 +318,9 @@ p {
     background-color: #BCBBC3 ;
     display: block;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 15px;
     margin-bottom: .5rem;
+    padding: 15px;
 }
 .comentario-usuario {
   display: flex;
