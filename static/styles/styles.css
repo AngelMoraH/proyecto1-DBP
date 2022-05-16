@@ -321,7 +321,9 @@ p {
     border-radius: 15px;
     margin-bottom: .5rem;
     padding: 15px;
+    font-size: x-large;
 }
+
 .comentario-usuario {
   display: flex;
   flex-wrap: wrap;
@@ -340,6 +342,11 @@ p {
   border-radius: 12px;
   margin-bottom: 0.5rem;
   padding: 10px 15px;
+  font-size: medium;
+}
+.comentario-usuario .fecha{
+    float: right;
+    font-size: small;
 }
 .botonlike button {
     flex-wrap: wrap;

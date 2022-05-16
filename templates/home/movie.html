@@ -160,9 +160,9 @@
                 <li >
                     <h2>${user.user.userName}:</h2>
                     <div class="comentario">
-                    <h2 >${comentario.data['comentario']}</h2>
+                    <h4 >${comentario.data['comentario']}</h4>
                     </div>
-                    <h2 >Creado el dia ${comentario.data['dateCreated']}</h2>
+                    <div class="fecha">Creado el dia ${comentario.data['dateCreated']}</div>
                     <div class="botonlike">
                 <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})"><i class="fa-solid fa-heart"></i></button>
                 <h2 class="comentariolike">${comentario.data["likes"]} </h2>
