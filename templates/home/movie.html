@@ -18,9 +18,10 @@
         <p class="littlebox">{{movie.data['calificacion']}}</p>
     </div>
     <div class="area-comentar">
+        <p >Deja tu comentario aqui</p>
     <form id="form" class="inputs-comentarios">
         <textarea name="" class="area-comentario" name="comentario" id="comentario"></textarea>
-        <input type="submit" value="Create">
+        <input class="botonenviar" type="submit" value="Comentar">
     </form>
     </div>
     <ul id="lista-comentarios" class="lista-comentarios"></ul>
@@ -143,8 +144,13 @@
                 <h2 >${comentario.data['comentario']}</h2>
                 </div>
                 <h2 >Creado el dia ${comentario.data['dateCreated']}</h2>
-                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">likes</button><h2 class="comentariolike">${comentario.data["likes"]} </h2>
+                <div class="botonlike">
+                    <i class="fa-solid fa-heart"></i>
+                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">likes</button>
+                <h2 class="comentariolike">${comentario.data["likes"]} </h2>
                 <button onclick="deleteComentario(${comentario.id})">Delete</button>
+                </div>
+            
             </li>
             </div>
             `
