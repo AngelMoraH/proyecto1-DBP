@@ -6,6 +6,8 @@ from configuration import db,sys
 from models.User import User
 from . import routes
 
+
+
 @routes.route('/login/',methods=["GET","POST"])
 def login():
     status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR
