@@ -20,7 +20,7 @@ def infoMovie(idMovie):
     user={'id':'','userName':'','email':'','password':'','dateCreated':''}
     if "user" in session:
         user=session["user"]
-    return render_template("home/movie.html", movie=Movie.query.get(idMovie).toJson(),idUser=user['id'])
+    return render_template("home/movie.html", movie=Movie.query.get(idMovie).toJson(),user=user,idUser=user['id'])
 
 
 
