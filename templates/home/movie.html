@@ -17,14 +17,16 @@
         <h2 class="littlebox">{{movie.data['fechaEstreno']}}</h2>
         <p class="littlebox">{{movie.data['calificacion']}}</p>
     </div>
-
-    <form id="form">
-        <input type="text" name="comentario" id="comentario">
+    <div class="area-comentar">
+    <form id="form" class="inputs-comentarios">
+        <textarea name="" class="area-comentario" name="comentario" id="comentario"></textarea>
         <input type="submit" value="Create">
     </form>
+    </div>
     <ul id="lista-comentarios" class="lista-comentarios"></ul>
+    
 </div>
-
+<p>Comentarios</p>
 {% endblock %}
 {% block customJS %}
 <script>
@@ -109,7 +111,7 @@
         if (userID==''){
             alert('Debes iniciar sesión para poder eliminar el comentario');
         }else{
-            fetch(`/comentario/${id}`, {
+            fetch(`/comentario/${id}/${userID}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -128,20 +130,25 @@
         }
     }
 
-
+    
     const showComentarios = async () => {
         listaComentarios.innerHTML = '';
         const response = await fetch(`/comentario/${movieID}`)
         const comentarios = await response.json();
+        
         comentarios.comentarios.forEach(comentario => {
             listaComentarios.innerHTML += `
+            <div class="comentario-usuario">
             <li id=${comentario.id}>
-                <p>${comentario.data['comentario']}</p>
-                <p>${comentario.data['dateCreated']}</p>
-                <p class='comentariolike'>${comentario.data["likes"]}</p>
-                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">like</button>
+                <div class="comentario">
+                <h2 >${comentario.data['comentario']}</h2>
+                <h2 ></h2>
+                </div>
+                <h2 >Creado el dia ${comentario.data['dateCreated']}</h2>
+                <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})">likes ${comentario.data["likes"]}</button>
                 <button onclick="deleteComentario(${comentario.id})">Delete</button>
             </li>
+            </div>
             `
         });
     }

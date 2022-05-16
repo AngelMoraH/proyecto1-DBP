@@ -313,8 +313,52 @@ solid rgb(198, 198, 198);
     float: right;
 }
 
-
-
+.contenedor-comentarios{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.area-comentar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    padding: 18px;
+    background-color: #fff;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
+    border-radius: 12px;
+}
+.area-comentar .inputs-comentarios {
+    margin-left: 1rem;
+}
+.area-comentar .inputs-comentarios .area-comentario {
+    border: 0;
+    background-color: #F0F0F0;
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: .5rem;
+}
+.comentario-usuario{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    padding: 18px;
+    background-color: #fff;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
+    border-radius: 12px;
+    
+}
+.comentario-usuario .comentario{
+    border: 0;
+    background-color: #F0F0F0;
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: .5rem;
+    padding: 10px 15px;
+}
 
 
 * {
