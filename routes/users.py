@@ -7,6 +7,10 @@ from models.User import User
 from . import routes
 
 
+@routes.route("/getUser/<int:userID>", methods=["GET"])
+def getUserById(userID):
+    user=User.query.filter_by(id=userID).first()
+    return jsonify({'user':user.toJson()})
 
 @routes.route('/login/',methods=["GET","POST"])
 def login():
