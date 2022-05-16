@@ -19,7 +19,11 @@
     </div>
     <div class="area-comentar">
     <form id="form" class="inputs-comentarios">
+<<<<<<< HEAD
         <textarea name="" class="area-comentario" name="comentario" id="comentario" placeholder="Ingresa tu comentario"></textarea>
+=======
+        <textarea class="area-comentario" name="comentario" id="comentario"></textarea>
+>>>>>>> 195a08287e6ed132ddd71db46ab14fc99c88ed12
         <input class="botonenviar" type="submit" value="Comentar">
     </form>
     </div>
@@ -35,11 +39,18 @@
     userID = "{{idUser}}";
     movieID = "{{movie.id}}";
 
+    function cantRepetidos(letras) {
+        return letras.split('').filter((c, i, a)=>a.indexOf(c) !== i).length
+    }
+    console.log('Caracteres repetidos:', cantRepetidos('AmnAmPP'))
+
     document.getElementById('form').onsubmit = function (e) {
         e.preventDefault();
         if (userID == '') {
             alert('Debes iniciar sesión para poder hacer un comentario');
-        } else {
+        }else if(comentario==''){
+            alert('Debes escribir un comentario');
+        }else {
             const comentario = comentarioInput.value;
             fetch('/comentario/', {
                 method: "POST",
