@@ -9,6 +9,7 @@ from datetime import datetime
 def getComentario(movieID):
     status_code=0
     res = Comentario.query.all()
+
     for i in range(0,len(res)):
         res[i].data["likes"]=len(Comentario.query.filter_by(id=res[i].id).first().ilikes)
     sorted(res, key=lambda x: x.data["likes"], reverse=True)
@@ -24,6 +25,7 @@ def createComentario():
     status_code=0
     try:
         request_data = request.get_data().decode('utf-8')
+        
         data1=request_data[9:len(request_data)-2].split(",")
         for i in range(0,len(data1)):
             data1[i]=data1[i].split(":")
@@ -55,8 +57,12 @@ def updateComentario(commentID):
     try:
         comentarioDATA=request.get_json()["data"]
         nComentario = Comentario.query.filter_by(id=commentID).update(dict(data=comentarioDATA))
-        db.session.commit()
-        message='like de Comentario actualizado con exito'
+        print(nComentario)
+        if nComentario ==1 :
+            db.session.commit()
+            message='like de Comentario actualizado con exito'
+        else:
+            abort(http.HTTPStatus.INTERNAL_SERVER_ERROR)
     except Exception as e:
         print(e)
         db.session.rollback()

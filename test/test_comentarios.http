@@ -1,6 +1,6 @@
 ###
-## OBTENER TODAS LAS PELICULAS
-GET http://127.0.0.1:5000/comentario/37
+## OBTENER TODOS LOS COMENTARIOS DE UNA PELICULA
+GET http://127.0.0.1:5000/comentario/23
 Accept: application/json
 
 ###

@@ -19,8 +19,6 @@ app.register_blueprint(routes,url_prefix="/")
 db.init_app(app)
 migrate = Migrate(app, db)
 
-#with app.app_context():
-#    db.create_all()
 
 # run
 if __name__ == "__main__":
