@@ -1,4 +1,4 @@
-from flask import jsonify, render_template,request,redirect,url_for,session
+from flask import abort, jsonify, render_template,request,redirect,url_for,session
 from werkzeug.security import check_password_hash,generate_password_hash
 import datetime
 import http
@@ -14,7 +14,7 @@ def getUserById(userID):
 
 @routes.route('/login/',methods=["GET","POST"])
 def login():
-    status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR
+    status_code=0
     if request.method == "POST":
         user=User.query.filter_by(email=request.get_json()['email']).first()
         if user:
@@ -23,8 +23,10 @@ def login():
                 status_code=http.HTTPStatus.OK
                 return jsonify({"user":user.toJson(),"status":"success","status_code":status_code})
             else:
+                status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR
                 return jsonify({"message":"Usuario o contraseña incorrectos","status":"no success","status_code":status_code})
         else:
+            status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR
             return jsonify({"message":"Usuario no existe","status":"no success","status_code":status_code})
     else:
         return render_template("auth/login.html")

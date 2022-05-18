@@ -92,7 +92,7 @@ Las librerías utilizadas en el proyecto son:
     * **password:** Es la contraseña del usuario de tipo STRING que al momento de registrarse es encriptada.
     * **dateCreated:** Es la fecha en la que se creó el usuario de tipo DATETIME.
 * **LIKE_USER_COMENTARIO:** Es la relación many to many entre el usuario y el comentario, esta relación se crea cuando un usuario le da like a un comentario.
-<img style="width: 560px;" src='static/imgs/modeloER.png' alt='modeloER'/>
+
 <hr/>
 
 # Hosts
