@@ -203,7 +203,7 @@ p {
   border-top: 1px solid rgb(255, 255, 255);
   border-bottom: 1px solid rgb(153, 153, 153);
   padding: 5px 10px;
-  margin: 0;
+  margin: 2px;
   border-bottom-color: rgb(153, 153, 153);
   border-radius: 5px;
   min-height: 6px;
@@ -453,7 +453,24 @@ body {
 
   display: none;
 }
+.cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+ .contmov{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 7rem;
+  width: 70%;
+  margin-left: 0px;
+  margin-top: 50px; 
+  ;
 
+}
 /* MOBILE */
 @media (max-width: 768px) {
   body {

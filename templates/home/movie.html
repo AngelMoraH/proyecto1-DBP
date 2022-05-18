@@ -12,10 +12,14 @@
 <div>
     <div class="rbox">
         <h3 class="littlebox">{{movie.data['nombre']}}</h3>
-        <img style="width: 200px;" src="{{movie.data['imagenURL']}}" alt="logo">
-        <p class="littlebox">Overview: {{movie.data['description']}}</p>
-        <p class="littlebox"> Fecha de Estreno: {{movie.data['fechaEstreno']}}</p>
-        <p class="littlebox">Calificacion: {{movie.data['calificacion']}}</p>
+        <div class ="cont">
+        <img style="width: 300px;" src="{{movie.data['imagenURL']}}" alt="logo">
+        <div class="contmov">
+            <p class="littlebox">Overview: {{movie.data['description']}}</p>
+            <p class="littlebox"> Fecha de Estreno: {{movie.data['fechaEstreno']}}</p>
+            <p class="littlebox">Calificacion: {{movie.data['calificacion']}}</p>
+            </div>
+        </div>
     </div>
     <div class="area-comentar">
     <form id="form" class="inputs-comentarios">
