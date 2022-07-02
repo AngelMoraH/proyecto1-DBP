@@ -1,4 +1,4 @@
-from configuration import db,metadata_proj
+from configuration import db
 
 like_user_comentario = db.Table('LikeUserComentario',
     db.Column('idUser', db.Integer, db.ForeignKey('usuario.id')),
@@ -21,7 +21,7 @@ class User(db.Model):
                 "userName": self.userName,
                 "email": self.email,
                 "password": self.password,
-                "dateCreated": self.dateCreated,
+                "dateCreated": self.dateCreated
             }
         )
 
@@ -31,5 +31,6 @@ class User(db.Model):
             "userName": self.userName,
             "email": self.email,
             "password": self.password,
-            "dateCreated": self.dateCreated,
+            "dateCreated": self.dateCreated
         }
+

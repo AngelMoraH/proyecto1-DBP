@@ -52,6 +52,7 @@
             alert('Debes escribir un comentario');
         }else {
             const comentario = comentarioInput.value;
+            console.log(comentario)
             fetch('/comentario/', {
                 method: "POST",
                 body: JSON.stringify({
@@ -67,8 +68,9 @@
                 }
             }).then(function (response) {
                 return response.json();
+                console.log(response.json());
             }).then(function (jsonResponse) {
-                console.log(jsonResponse.response.id);
+                console.log(jsonResponse.response);
                 listaComentarios.innerHTML += `
                 <div id=${jsonResponse.response.id} class="comentario-usuario">
                     <li >
@@ -81,7 +83,7 @@
                     </li>
                     </div>
                 `
-                console.log("jsonResponse: ", jsonResponse.response['data']);
+                console.log("jsonResponse: ", jsonResponse.response);
             }).catch(error => console.error("Error", error));
         }
 
@@ -145,11 +147,14 @@
         }
     }
 
+    const responderComentario= async (id) =>{
+
+    }
 
     const showComentarios = async () => {
         listaComentarios.innerHTML = '';
         const response = await fetch(`/comentario/${movieID}`)
-        
+
         const comentarios = await response.json();
         comentarios.comentarios.forEach(comentario => {
             fetch(`/getUser/${comentario.data['idUser']}`, {
@@ -158,7 +163,6 @@
                     'Content-Type': 'application/json'
                 }
             }).then(response=>response.json()).then(user=>{
-                console.log(user.user.id);
                 listaComentarios.innerHTML += `
                 <div id=${comentario.id} class="comentario-usuario">
                 <li >
@@ -171,10 +175,10 @@
                 <button onclick="validateLike(${comentario.id},${comentario.data["likes"]})"><i class="fa-solid fa-heart"></i></button>
                 <h2 class="comentariolike">${comentario.data["likes"]} </h2>
                 <button onclick="deleteComentario(${comentario.id})">Delete</button>
+                <button onclick="responderComentario(${comentario.id})">responder</button>
                 </div>
                 </li>
             `
-
             });
         });
     }
