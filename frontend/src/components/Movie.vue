@@ -4,7 +4,7 @@
         <div class="container-movie__info">
             <strong class="title-movie">{{this.data['nombre']}}</strong>
             <p class="description-movie">{{this.data['description']}}</p>
-            <input type="button" value="más"/>
+            <router-link :to="`/movie/${this.id}`">más</router-link>
         </div>
     </div>
 </template>
@@ -47,6 +47,10 @@ img {
     font-size: 2rem;
     font-weight: bold;
     font-style: none;
+    color: rgb(111, 0, 0);
+}
+a {
+    text-decoration: none;
     color: rgb(111, 0, 0);
 }
 </style>

@@ -1,11 +1,9 @@
 <template>
     <header class="header">
         <div class="container">
-            <div class="logo nav-link">
-                <router-link to="/">
-                    <strong class="navfont" style="color:rgb(233, 233, 233)">HORRORPEDIA</strong>
-                </router-link>
-            </div>
+            <router-link to="/">
+                <strong class="navfont" style="color:rgb(233, 233, 233)">HORRORPEDIA</strong>
+            </router-link>
             <input type="checkbox" id="toggle" class="input-toggler">
             <label for="toggle" class="menu-toggler">
                 <span class="menu-toggler-line"></span>
@@ -17,15 +15,15 @@
             <aside class="sidebar">
                 <ul class="menu">
                     <li>
-                        <router-link to="/login"><span class="menu-link nav-link">Ingresa</span>
+                        <router-link to="/login"><span class="menu-link">Ingresa</span>
                         </router-link>
                     </li>
                     <li>
-                        <router-link to="/register"><span class="menu-link nav-link">Registrate</span>
+                        <router-link to="/register"><span class="menu-link">Registrate</span>
                         </router-link>
                     </li>
                     <li>
-                        <router-link to="/logout"><span class="menu-link nav-link">Salir</span>
+                        <router-link to="/logout"><span class="menu-link">Salir</span>
                         </router-link>
                     </li>
                 </ul>
