@@ -23,12 +23,13 @@ def getUserById(userID):
         else:
             abort(500)
 
-@routes.route('/login/',methods=["GET"])
+@routes.route('/login/',methods=["POST"])
 def login():
     status_code=0
     error_404 = False
     try:
         body = request.get_json()
+        print(body)
         user=User.query.filter_by(email=body.get('email')).one_or_none()
         if user is None:
             error_404= True

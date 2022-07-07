@@ -31,8 +31,8 @@ export const moviesStore = defineStore('movies', {
             try {
                 this.movies = await fetch(baseURL + `movies?search=${title}`)
                 .then(response => response.json())
-                .then((data) => data.movie)
-                
+                .then((data) => data.movies)
+                console.log(this.movies);
             } catch (error) {
                 this.error = error
             } finally {
@@ -53,4 +53,84 @@ export const moviesStore = defineStore('movies', {
             }
         }
     }
-})
+});
+
+export const comentariosStore = defineStore('comentarios',{
+    state : () => ({
+        comentarios : [],
+        loadingComentario : false,
+        errorComentario : null,
+    }),
+    actions : {
+        async getComentarios(movie_id) {
+            this.comentarios = [];
+            this.loadingComentario = true;
+            try {
+                this.comentarios = await fetch(baseURL + `comentarios/${movie_id}`)
+                .then(response => response.json())
+                .then((data) => data.comentarios)
+            } catch (error) {
+                this.errorComentario = error
+            } finally {
+                this.loadingComentario = false
+            }
+        }
+    }
+});
+
+export const userStore = defineStore('user', {
+    state: () => ({
+        user: null,
+        islogged: false,
+        loadingUser: false,
+        errorUser: null,
+    }),
+    actions: {
+        async login(email, password) {
+            this.loadingUser = true;
+            try {
+                this.user = await fetch(baseURL + 'login/', {
+                    method: 'POST',
+                    body: JSON.stringify({ email:email, password:password }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((response) => response.json()).then((data) => data.user)
+                this.islogged = true;
+            } catch (error) {
+                this.errorUser = error
+            } finally {
+                this.loadingUser = false;
+            }
+        },
+        async register(name, email, password) {
+            this.loadingUser = true;
+            try {
+                this.user = await fetch(baseURL + 'register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 'userName':name, 'email':email, 'password':password })
+                }).then((response) => response.json()).then((data) => data.user)
+            } catch (error) {
+                this.errorUser = error
+            } finally {
+                this.loadingUser = false;
+            }
+        },
+        async logout() {
+            this.loadingUser=true;
+            try {
+                fetch(baseURL + 'logout')
+                this.user = null;
+                this.islogged = false;
+            } catch (error) {
+                this.errorUser = error
+            } finally {
+                this.loadingUser = false;
+            }
+        }
+    }
+
+});

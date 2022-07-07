@@ -10,7 +10,7 @@
         </div>
         <div v-else >
             <div v-for="movie in movies" :key="movie.id">
-                <Movie :data="movie['data']" :id="movie.id" />
+                <Movie :data="movie['data']" :id="movie.id" :informationButton="true" />
             </div>
             <div>
                 <input type="button" value="1" @click="getMovies(1)" />
@@ -34,6 +34,8 @@ const {getMovies,searchMovie} = moviesStore();
 onMounted(() => {
     getMovies(1);
 });
+
+
 </script>
 
 <style scoped>

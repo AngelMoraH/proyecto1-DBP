@@ -15,15 +15,3 @@ class Comentario(db.Model):
         return {"id": self.id, "data": self.data}
 
 
-class ComentarioPadre(db.Model):
-    __tablename__ = "comentarioPadre"
-    id = db.Column(db.Integer, primary_key=True)
-    comentarioId = db.Column(db.Integer, db.ForeignKey('comentario.id'), nullable=False)
-    ComentarioHijo = db.relationship("ComentarioHijo", backref="ComentarioPadre", lazy=True)
-
-
-class ComentarioHijo(db.Model):
-    __tablename__ = "comentarioHijo"
-    id = db.Column(db.Integer, primary_key=True)
-    comentarioId = db.Column(db.Integer, db.ForeignKey('comentario.id'), nullable=False)
-    comentarioPadreId = db.Column(db.Integer, db.ForeignKey('comentarioPadre.id'), nullable=False)

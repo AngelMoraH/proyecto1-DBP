@@ -23,12 +23,11 @@
                         </router-link>
                     </li>
                     <li>
-                        <router-link to="/logout"><span class="menu-link">Salir</span>
-                        </router-link>
+
+                        <button @click="functionLogOut()">Salir</button>
                     </li>
                 </ul>
             </aside>
-
         </div>
     </header>
 </template>
@@ -36,7 +35,21 @@
 
 
 <script setup>
+import { storeToRefs } from 'pinia';
+import { useRoute, useRouter } from 'vue-router';
+import { userStore } from '../store/store.js';
+const { islogged, user, loadingUser } = storeToRefs(userStore());
+const { logout } = userStore();
+const router = useRouter();
+const route = useRoute();
 
+const functionLogOut = async() => {
+    await logout();
+    console.log(islogged.value);
+    await window.localStorage.removeItem("user");
+    router.push('/login')
+
+};
 </script>
 
 <style lang="scss" scoped>
@@ -162,22 +175,24 @@ a {
     position: relative;
     transition: all .40s ease-out;
 }
+
 .menu-toggler:hover {
-    .menu-toggler-line{
-        background:  #ffbb84;
+    .menu-toggler-line {
+        background: #ffbb84;
     }
-    
+
 }
+
 .input-toggler:checked~.menu-toggler .menu-toggler-line {
     top: 5px;
     translateY: 100px;
     transform: rotate(45deg);
-    
+
 }
 
 .input-toggler:checked~.menu-toggler .menu-toggler-line:nth-child(2) {
     display: none;
-    
+
 }
 
 .input-toggler:checked~.menu-toggler .menu-toggler-line:nth-child(3) {

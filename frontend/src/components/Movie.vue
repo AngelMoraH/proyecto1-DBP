@@ -4,7 +4,13 @@
         <div class="container-movie__info">
             <strong class="title-movie">{{this.data['nombre']}}</strong>
             <p class="description-movie">{{this.data['description']}}</p>
-            <router-link :to="`/movie/${this.id}`">más</router-link>
+            <div v-if="this.informationButton==true">
+                <router-link :to="`/movie/${this.id}`" >más</router-link>
+            </div>
+            <div v-else style="display: flex; flex-direction: column;">
+                <strong >Calificación: {{this.data['calificacion']}}/10</strong>
+                <strong >Estreno: {{this.data['fechaEstreno']}}</strong>
+            </div>
         </div>
     </div>
 </template>
@@ -17,6 +23,10 @@ const props = defineProps ({
     },
     id: {
         type: Number,
+        required: true
+    },
+    informationButton: {
+        type: Boolean,
         required: true
     }
 })

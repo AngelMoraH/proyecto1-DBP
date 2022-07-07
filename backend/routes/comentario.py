@@ -1,9 +1,7 @@
-from distutils.log import error
-from functools import total_ordering
 from flask import jsonify, request, abort
 from models.Movies import Movie
 from configuration import db
-from models.comentario import Comentario, ComentarioPadre, ComentarioHijo
+from models.comentario import Comentario
 from . import routes
 import http
 from datetime import datetime
@@ -12,17 +10,29 @@ from datetime import datetime
 
 @routes.route("/comentarios/<int:movieID>")
 def getComentario(movieID):
-    status_code = 0
-    res = Comentario.query.all()
-    movie = Movie.query.filter_by(id=movieID).one_or_none()
-    if movie is None:
-        abort(404)
-    for i in range(0, len(res)):
-        res[i].data["likes"] = len(Comentario.query.filter_by(id=res[i].id).first().ilikes)
-    sorted(res, key=lambda x: x.data["likes"], reverse=True)
-    status_code = http.HTTPStatus.ACCEPTED
-    return jsonify(
-        {"comentarios": [m.toJson() for m in res if m.data['idMovie'] == movieID],"total_comentarios": len(res), "status_code": status_code, 'success':True})
+    error_404=False
+    try:
+        status_code = 0
+        res = Comentario.query.all()
+        movie = Movie.query.filter_by(id=movieID).one_or_none()
+        if movie is None:
+            error_404=True
+            abort(404)
+        for i in range(0, len(res)):
+            res[i].data["likes"] = len(Comentario.query.filter_by(id=res[i].id).first().ilikes)
+        sorted(res, key=lambda x: x.data["likes"], reverse=True)
+        status_code = http.HTTPStatus.ACCEPTED
+        return jsonify(
+            {"comentarios": [m.toJson() for m in res if m.data['idMovie'] == movieID],"total_comentarios": len(res), "status_code": status_code, 'success':True})
+    except Exception as e:
+        db.session.rollback()
+        if error_404:
+            print(e)
+            abort(404)
+        else:
+            print(e)
+            abort(500)
+        pass
 
 
 @routes.route("/comentarios", methods=["POST"])

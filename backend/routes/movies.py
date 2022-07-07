@@ -36,7 +36,7 @@ def getMovies():
                     search_movies.append(m)
             if exist:
                 moviesSearch = paginate_movies(request, search_movies, False)
-                
+                print(moviesSearch)
                 return jsonify({
                     'success': True,
                     'movies': moviesSearch,
