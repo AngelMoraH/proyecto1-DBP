@@ -29,6 +29,10 @@ class TestCaseProyecto(unittest.TestCase):
             "idUser": 4,
             "idMovie": 1
         }
+        self.userLogin = {
+            "email":"angel456mora123@gmail.com",
+            "password":"ANGELmora123"
+        }
 
     # MOVIES
     def test_get_movies_success(self):
@@ -182,5 +186,41 @@ class TestCaseProyecto(unittest.TestCase):
         self.assertEqual(res.status_code, 404)
         self.assertFalse(data["success"])
         self.assertEqual(data["message"], "resource not found")
+    
+    def test_get_user_By_Id_sucess(self):
+        res = self.client().get("/user/1")
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data["success"])
+        self.assertTrue(len(data["user"]))
+    
+    def test_get_user_By_Id_failed(self):
+        res = self.client().get("/user/100000000")
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 404)
+        self.assertFalse(data["success"])
+        self.assertEqual(data["message"], "resource not found")
+    
+    def test_login_success(self):
+        res = self.client().post("/login/", json={"email": self.userLogin['email'],"password": self.userLogin['password']})
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data["success"])
+        self.assertTrue(len(data["user"]))
+        
+    def test_login_failed(self):
+        res = self.client().post("/login/", json={"email": self.userLogin['email'],"password":'0'})
+        data = json.loads(res.data)
+        
+        self.assertEqual(data["status_code"], 400)
+        self.assertFalse(data["success"])
+        self.assertEqual(data["message"],"Usuario o contraseña incorrectos")
+    
+    def test_register_success(self):
+        
+        pass
     def tearDown(self):
         pass

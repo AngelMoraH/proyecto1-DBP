@@ -49,16 +49,18 @@ def getMovies():
         movies = paginate_movies(request, selection)
 
         if len(movies) == 0:
+            error_404=True
             abort(404)
 
         return jsonify({"success": True, "movies": movies, "total_movies": len(selection)})
-    except:
+    except Exception as e:
         db.session.rollback()
         if error_404:
+            print(e)
             abort(404)
         else:
+            print(e)
             abort(500)
-        pass
 
 
 @routes.route("/movies/<int:movieID>")

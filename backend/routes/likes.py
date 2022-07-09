@@ -32,13 +32,15 @@ def addLike(idComment, idUser):
             db.session.commit()
             return jsonify({"message": message,'success':True,'total_likes':total_likes,'id_comentario':idComment})
         else:
-            return jsonify({"message": message,'success':False,'total_likes':total_likes,'id_comentario':idComment})
+            return jsonify({"message": message,'success':False,'total_likes':len(comentario.ilikes),'id_comentario':idComment})
     except Exception as e:
-        print(e)
+        
         db.session.rollback()
         if error_404:
+            print(e)
             abort(404)
         else:
+            print(e)
             abort(500)
     finally:
         db.session.close()
