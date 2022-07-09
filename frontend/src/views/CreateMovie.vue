@@ -7,7 +7,7 @@
                 <span></span>
                 <span></span>
                 <span></span>
-                HOVER ME
+                Submit
             </div>
         </div>
         <div class="container-info">
@@ -17,16 +17,8 @@
                 <label>Titulo</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" required v-model="autor">
-                <label>Autor</label>
-            </div>
-            <div class="user-box">
                 <input type="text" name="" required v-model="descripcion">
                 <label>Descripcion</label>
-            </div>
-            <div class="user-box">
-                <input type="text" name="" required v-model="calificacion">
-                <label>Calificacion</label>
             </div>
             <div class="user-box">
                 <input type="text" name="" required v-model="estreno">
@@ -36,7 +28,10 @@
                 <input type="url" name="" required v-model="imgURL">
                 <label>Poster</label>
             </div>
-
+            <div class="user-box">
+                <span id="rangeValue" v-text="`calificacion: ${calificacion}`"></span>
+                <input class="range" type="range" min="0.0" max="10.0" step="0.1" v-model="calificacion" />
+            </div>
         </div>
     </div>
 </template>
@@ -44,31 +39,37 @@
 <script setup>
 import { ref } from "@vue/runtime-core";
 let titulo = ref("");
-let autor = ref("");
 let descripcion = ref("");
-let calificacion = ref("");
+let calificacion = ref(0.0);
 let estreno = ref("");
 let imgURL = ref("https://www.nato-pa.int/sites/default/files/default_images/default-image.jpg");
 
-const data = {
-    titulo,
-    autor,
-    descripcion,
-    calificacion,
-    estreno,
-    imgURL
-};
-
 const addMovie = async () => {
-    const response = await fetch("http://localhost:3000/movies", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({'data': data})
-    });
-    const json = await response.json();
-    console.log(json);
+    if (titulo.value == "" || descripcion.value == "" || estreno.value == "" || imgURL.value == "" ) {
+        alert("Todos los campos son obligatorios");
+    } else {
+        const response = await fetch("http://localhost:5000/movies", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                'data': {
+                    nombre: titulo.value,
+                    description: descripcion.value,
+                    calificacion: calificacion.value,
+                    fechaEstreno: estreno.value,
+                    imagenURL: imgURL.value
+                }
+            })
+        });
+        const data = await response.json();
+        if (data['sucess']) {
+            router.push("/");
+        } else {
+            alert("Error al agregar pelicula");
+        }
+    }
 };
 </script>
 
@@ -80,15 +81,28 @@ const addMovie = async () => {
     left: 50%;
     width: 80%;
     height: 500px;
-    padding: 20px 5px;
+    padding: 20px 5px 2px;
     flex-direction: row;
     justify-content: space-evenly;
+    align-items: center;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 1);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
 }
+
+#rangeValue {
+    position: relative;
+    display: block;
+    text-align: center;
+    color: #999;
+}
+
+.container-info {
+    width: 40%;
+}
+
 .container-poster {
     display: flex;
     flex-direction: column;
@@ -97,8 +111,9 @@ const addMovie = async () => {
     width: 50%;
     height: 100%;
 }
+
 .poster {
-    width: 350px;
+    width: 300px;
     height: 350px;
 }
 

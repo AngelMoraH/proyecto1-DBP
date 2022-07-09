@@ -88,9 +88,12 @@ def register():
         abort(422)
     try:
         user0=User.query.filter_by(email=email).one_or_none()
-        if user0 != None:
-            error_404=True
-            abort(404)
+        user1=User.query.filter_by(userName=userName).one_or_none()
+        if user0 != None or user1 != None:
+            return jsonify({
+                'message':"usuario o email ya existe",
+                'success':False,
+			})
         else: 
             user = User(
 			userName= userName,

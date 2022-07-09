@@ -1,7 +1,7 @@
 <template>
     <div class="container-body">
         <div class="container-input__search">
-            <input type="text" class="input-search" placeholder="Buscar..." v-model="pelicula" @keyup.enter="searchMovie(pelicula)">
+            <input type="text" class="input-search" placeholder="Buscar..." v-model="pelicula" @keyup.enter="searchMovies(pelicula)">
             
             <p v-if="pelicula.length>0">Press Enter</p>
         </div>
@@ -23,13 +23,22 @@
 <script setup>
 import { onMounted, ref } from "@vue/runtime-core";
 import {moviesStore} from '../store/store.js';
-import Movie from "./Movie.vue";
-import LoadingSpinner from "./LoadingSpinner.vue"
+import Movie from "../components/Movie.vue";
+import LoadingSpinner from "../components/LoadingSpinner.vue"
 import { storeToRefs } from 'pinia';
 let pelicula = ref("");
 
 const {error,movies,loading} = storeToRefs(moviesStore());
 const {getMovies,searchMovie} = moviesStore();
+
+async function searchMovies(pelicula) {
+    if (pelicula ==="") {
+        getMovies(1);
+        
+    }else {
+        await searchMovie(pelicula);
+    }
+} 
 
 onMounted(() => {
     getMovies(1);

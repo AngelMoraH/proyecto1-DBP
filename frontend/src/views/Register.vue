@@ -24,15 +24,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue-demi";
+import { ref } from "@vue/runtime-core";
 import { storeToRefs } from 'pinia';
+import router from "../router/routes.js";
 import {userStore} from '../store/store.js';
 
 let username=ref("");
 let email = ref("");
 let password = ref("");
 let tipe = ref("password");
-const {islogged,user,loadingUser} = storeToRefs(userStore());
+const {islogged,user,loadingUser,errorUser,messageUser} = storeToRefs(userStore());
 const {register} = userStore();
 
 const showPassword = () => {
@@ -43,9 +44,18 @@ const showPassword = () => {
     }
 };
 
-const funcionRegister = () => {
-    register(username.value,email.value,password.value);
-    route.push("/");
+const funcionRegister = async() => {
+    if (username.value == "" || email.value == "" || password.value == "") {
+        alert("username, email o password vacios");
+    } else{
+        await register(username.value,email.value,password.value);
+        if(messageUser.value == "usuario o email ya existe"){
+            alert(messageUser.value);
+        }else{
+            router.push('/login');
+        }
+
+    }
 };
 </script>
 

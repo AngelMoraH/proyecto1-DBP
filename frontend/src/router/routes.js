@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { storeToRefs } from 'pinia';
 import {userStore} from '../store/store.js';
-import Home from "../components/Home.vue";
-import MovieDetail from "../components/MovieDetails.vue";
-import Login from "../components/Login.vue";
-import Register from "../components/Register.vue";
+import Home from "../views/Home.vue";
+import MovieDetail from "../views/MovieDetails.vue";
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 import AddMovie from "../views/CreateMovie.vue";
 const routes = [
     { path: "/",name:'Home', component: Home,meta: { requiresAuth: true } },

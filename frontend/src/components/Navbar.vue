@@ -12,7 +12,30 @@
             </label>
 
             <aside class="sidebar">
-                <ul class="menu">
+                <ul class="menu" v-if="user!=null">
+                    <li>
+                        <router-link to="/"><span class="menu-link">Home</span>
+                        </router-link>
+                    </li>
+                    <li v-if="user['userName'] == 'angel' && user['email'] == 'angel456mora123@gmail.com'">
+                        <router-link to="/addmovie"><span class="menu-link">add movie</span>
+                        </router-link>
+                    </li>
+                    <li>
+                        <div class="button2" @click="functionLogOut()">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Adiós {{ user['userName'] }}
+                        </div>
+                    </li>
+                </ul>
+                <ul class="menu" v-else>
+                    <li>
+                        <router-link to="/"><span class="menu-link">Home</span>
+                        </router-link>
+                    </li>
                     <li>
                         <router-link to="/login"><span class="menu-link">Ingresa</span>
                         </router-link>
@@ -20,10 +43,6 @@
                     <li>
                         <router-link to="/register"><span class="menu-link">Registrate</span>
                         </router-link>
-                    </li>
-                    <li>
-
-                        <button @click="functionLogOut()">Salir</button>
                     </li>
                 </ul>
             </aside>
@@ -42,7 +61,7 @@ const { logout } = userStore();
 const router = useRouter();
 const route = useRoute();
 
-const functionLogOut = async() => {
+const functionLogOut = async () => {
     await logout();
     console.log(islogged.value);
     await window.localStorage.removeItem("user");
@@ -253,5 +272,120 @@ a {
     transform: translateX(-1%);
     opacity: .98;
     width: 100%;
+}
+
+.button2 {
+    position: relative;
+    display: inline-block;
+    padding: 20px 61px;
+    border-radius: 4px;
+    color: #03e9f4;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    margin: 25px;
+    font-family: "Roboto", sans-serif;
+    filter: hue-rotate(0deg);
+    border: 2px solid #d2bdff;
+    transition: all 0.1s linear;
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid transparent;
+
+        span {
+            position: absolute;
+            display: block;
+
+            &:nth-child(1) {
+                filter: hue-rotate(0deg);
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(90deg, transparent, #3a86ff);
+                animation: animate1 1s linear infinite;
+            }
+
+            @keyframes animate1 {
+                0% {
+                    left: -100%;
+                }
+
+                50%,
+                100% {
+                    left: 100%;
+                }
+            }
+
+            &:nth-child(2) {
+                filter: hue-rotate(60deg);
+                top: -100%;
+                right: 0;
+                width: 3px;
+                height: 100%;
+                background: linear-gradient(180deg, transparent, #3a86ff);
+                animation: animate2 1s linear infinite;
+                animation-delay: 0.25s;
+            }
+
+            @keyframes animate2 {
+                0% {
+                    top: -100%;
+                }
+
+                50%,
+                100% {
+                    top: 100%;
+                }
+            }
+
+            &:nth-child(3) {
+                filter: hue-rotate(120deg);
+                bottom: 0;
+                right: 0;
+                width: 100%;
+
+                background: linear-gradient(270deg, transparent, #3a86ff);
+                animation: animate3 1s linear infinite;
+                animation-delay: 0.5s;
+            }
+
+            @keyframes animate3 {
+                0% {
+                    right: -100%;
+                    height: 3px;
+                }
+
+                50%,
+                100% {
+                    height: 2px;
+                    right: 100%;
+                }
+            }
+
+            &:nth-child(4) {
+                filter: hue-rotate(300deg);
+                bottom: -100%;
+                left: 0;
+                width: 3px;
+                height: 100%;
+                background: linear-gradient(360deg, transparent, #3a86ff);
+                animation: animate4 1s linear infinite;
+                animation-delay: 0.75s;
+            }
+
+            @keyframes animate4 {
+                0% {
+                    bottom: -100%;
+                }
+
+                50%,
+                100% {
+                    bottom: 100%;
+                }
+            }
+        }
+    }
 }
 </style>

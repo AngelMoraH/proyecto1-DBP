@@ -45,9 +45,12 @@ const showPassword = () => {
 };
 
 const funcionLogin = async () => {
-    await login(email.value, password.value);
-    
-    router.push('/')
+    if (email.value == "" || password.value == "") {
+        alert("email o password vacios");
+    }else {
+        await login(email.value, password.value);
+        router.push('/');
+    }
 
 };
 </script>

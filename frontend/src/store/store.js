@@ -32,7 +32,6 @@ export const moviesStore = defineStore('movies', {
                 this.movies = await fetch(baseURL + `movies?search=${title}`)
                 .then(response => response.json())
                 .then((data) => data.movies)
-                console.log(this.movies);
             } catch (error) {
                 this.error = error
             } finally {
@@ -84,6 +83,7 @@ export const userStore = defineStore('user', {
         islogged: false,
         loadingUser: false,
         errorUser: null,
+        messageUser: null
     }),
     actions: {
         async login(email, password) {
@@ -95,10 +95,12 @@ export const userStore = defineStore('user', {
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                }).then((response) => response.json()).then((data) => data.user)
+                }).then((response) => response.json()).then((data) => data.user).catch((error) => {
+                    this.errorUser = error
+                })
                 this.islogged = true;
             } catch (error) {
-                this.errorUser = error
+                
             } finally {
                 this.loadingUser = false;
             }
@@ -112,7 +114,10 @@ export const userStore = defineStore('user', {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ 'userName':name, 'email':email, 'password':password })
-                }).then((response) => response.json()).then((data) => data.user)
+                }).then((response) => response.json()).then((data) => {
+                    this.messageUser=data.message;
+                    return data.user;
+                })
             } catch (error) {
                 this.errorUser = error
             } finally {
