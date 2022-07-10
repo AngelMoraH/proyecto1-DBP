@@ -1,10 +1,12 @@
 <template>
-    <div>
-        <strong>{{ this.data['comentario'] }}</strong>
-        <strong>{{ this.data['dateCreated'] }}</strong>
+    <div class="comentario-usuario">
+        <div class="comentario">
+        <h4>{{ this.data['comentario'] }}</h4> </div>
+
+        <div class="fecha">{{ this.data['dateCreated'] }}</div>
         <strong>{{ this.data['likes'] }}</strong>
-        <div>
-            <i class="fa-solid fa-thumbs-up" @click="validateLike(this.id,this.data['likes'])"></i>
+        <div class="botonlike">
+            <button><i class="fa-solid fa-thumbs-up" @click="validateLike(this.id,this.data['likes'])"></i></button>
             <p>{{ this.data['likes'] }}</p>
         </div>
     </div>
@@ -70,5 +72,40 @@ const validateLike = async (id, like) => {
 
 .icon-activate {
     color: rgb(202, 52, 52);
+}
+.comentario-usuario {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  padding: 18px;
+  background-color: #fff;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+.comentario-usuario .comentario {
+  border: 0;
+  background-color: #f0f0f0;
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+  padding: 10px 15px;
+  font-size: medium;
+}
+.comentario-usuario .fecha{
+    float: right;
+    font-size: small;
+}
+.botonlike button {
+    flex-wrap: wrap;
+    flex-direction: column;
+    display: inline-block;
+    border: 0;
+    padding: 3px 8px;
+    font-size: .8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color ease-in 200ms;
 }
 </style>
