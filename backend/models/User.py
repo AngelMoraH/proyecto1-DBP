@@ -11,6 +11,7 @@ class User(db.Model):
     email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
     dateCreated = db.Column(db.DateTime, nullable=False)
+    rol = db.Column(db.String(), nullable=False)
     gustar = db.relationship("Comentario",secondary=like_user_comentario,back_populates="ilikes",lazy=True)
     
     
@@ -21,6 +22,7 @@ class User(db.Model):
                 "userName": self.userName,
                 "email": self.email,
                 "password": self.password,
+                "rol": self.rol,
                 "dateCreated": self.dateCreated
             }
         )
@@ -31,6 +33,7 @@ class User(db.Model):
             "userName": self.userName,
             "email": self.email,
             "password": self.password,
+            "rol": self.rol,
             "dateCreated": self.dateCreated
         }
 

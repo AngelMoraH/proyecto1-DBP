@@ -14,12 +14,7 @@
                 <i class="fa-solid fa-eye" ></i>
             </button>
         </div>
-        
-        {{email}} - {{password}}
         <button @click="funcionRegister()">Login</button>
-        <div v-if="user !=null">
-            {{user}}
-        </div>
     </div>
 </template>
 

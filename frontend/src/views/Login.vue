@@ -14,11 +14,7 @@
             </button>
         </div>
 
-        {{ email }} - {{ password }}
         <button @click="funcionLogin()">Login</button>
-        <div v-if="user != null">
-            {{ user }}
-        </div>
     </div>
 </template>
 

@@ -81,6 +81,7 @@ def register():
     body = request.get_json()
     userName= body.get('userName',None)
     email= body.get('email',None)
+    rol= body.get('rol',None)
     password=generate_password_hash(body.get('password',None))
     
     if userName is None or email is None or password is None:
@@ -100,10 +101,13 @@ def register():
 			email= email,
 			password=password,
 			dateCreated=datetime.datetime.now(),
+            rol=rol
 			)
-            response['user_id']=user.id
+            
             db.session.add(user)
             db.session.commit()
+            user2=User.query.filter_by(email=email).one_or_none()
+            response['user_id']=user2.id
             response['success']=True
             response['status_code']= http.HTTPStatus.ACCEPTED
             response['message']="Usuario agregado con exito"

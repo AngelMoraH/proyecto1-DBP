@@ -53,6 +53,7 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     height: 50px;
+    margin: 20px 0px;
 }
 
 
