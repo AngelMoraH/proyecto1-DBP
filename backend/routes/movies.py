@@ -49,6 +49,7 @@ def getMovies():
         movies = paginate_movies(request, selection)
 
         if len(movies) == 0:
+            error_404=True
             abort(404)
 
         return jsonify({"success": True, "movies": movies, "total_movies": len(selection)})
@@ -58,8 +59,8 @@ def getMovies():
             print(e)
             abort(404)
         else:
+            print(e)
             abort(500)
-        pass
 
 
 @routes.route("/movies/<int:movieID>")
@@ -84,45 +85,44 @@ def getMoviesById(movieID):
             abort(500)
 
 
-@routes.route("/movies", methods=["POST"])
-def createMovie():
+@routes.route("/movies/<string:rol>", methods=["POST"])
+def createMovie(rol):
     response = {}
     message = ""
     status_code = 0
     error_422 = False
-    try:
-        body = request.get_json()
-
-        data = body.get("data", None)
-        if data is None:
-            error_422 = True
-            abort(422)
-
-        movie = Movie(data=data)
-        db.session.add(movie)
-        db.session.commit()
-        response["movie"] = movie.toJson()
-        response["success"] = True
-        message = "pelicula agregada con exito"
-        status_code = http.HTTPStatus.ACCEPTED
-        return jsonify(
-            {
-                "message": message,
-                "movie": response["movie"],
-                "status_code": status_code,
-                "success": response["success"],
-            }
-        )
-
-    except Exception as e:
-        db.session.rollback()
-        if error_422:
-            abort(422)
-        else:
-            abort(500)
-
-    finally:
-        db.session.close()
+    if rol =='admin':
+        try:
+            body = request.get_json()
+            data = body.get("data", None)
+            if data is None:
+                error_422 = True
+                abort(422)
+            movie = Movie(data=data)
+            db.session.add(movie)
+            db.session.commit()
+            response["movie"] = movie.toJson()
+            response["success"] = True
+            message = "pelicula agregada con exito"
+            status_code = http.HTTPStatus.ACCEPTED
+            return jsonify(
+                {
+                    "message": message,
+                    "movie": response["movie"],
+                    "status_code": status_code,
+                    "success": response["success"],
+                }
+            )
+        except Exception as e:
+            db.session.rollback()
+            if error_422:
+                abort(422)
+            else:
+                abort(500)
+        finally:
+            db.session.close()
+    else:
+        abort(403)
 
 
 @routes.route("/movies/<int:movieID>", methods=["PUT"])

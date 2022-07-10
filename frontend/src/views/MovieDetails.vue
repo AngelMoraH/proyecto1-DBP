@@ -23,9 +23,9 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import {moviesStore,comentariosStore} from '../store/store.js';
-import LoadingSpinner from './LoadingSpinner.vue';
-import Comentario from './Comentario.vue';
-import Movie from "./Movie.vue"
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+import Comentario from '../components/Comentario.vue';
+import Movie from "../components/Movie.vue";
 const props = defineProps ({
     id: {
         type: String,

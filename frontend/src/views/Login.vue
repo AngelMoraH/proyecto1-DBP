@@ -14,11 +14,7 @@
             </button>
         </div>
 
-        {{ email }} - {{ password }}
         <button @click="funcionLogin()">Login</button>
-        <div v-if="user != null">
-            {{ user }}
-        </div>
     </div>
 </template>
 
@@ -45,9 +41,12 @@ const showPassword = () => {
 };
 
 const funcionLogin = async () => {
-    await login(email.value, password.value);
-    
-    router.push('/')
+    if (email.value == "" || password.value == "") {
+        alert("email o password vacios");
+    }else {
+        await login(email.value, password.value);
+        router.push('/');
+    }
 
 };
 </script>

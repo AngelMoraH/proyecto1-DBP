@@ -7,7 +7,6 @@
 
 <style lang="scss" scoped>
 .spinner {
-
     border: 4px solid rgba(103, 12, 12, 0.512);
     width: 46px;
     height: 46px;

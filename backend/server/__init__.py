@@ -43,6 +43,14 @@ def create_app(test_config=None):
             'message': 'Unprocessable'
         }),422
     
+    @app.errorhandler(403)
+    def forbidden(error):
+        return jsonify({
+            'success': False,
+            'code': 403,
+            'message': 'Forbidden'
+        }),403
+    
     return app
 
 # $env:FLASK_APP = 'server'

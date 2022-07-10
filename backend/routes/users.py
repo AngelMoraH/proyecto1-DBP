@@ -29,7 +29,6 @@ def login():
     error_404 = False
     try:
         body = request.get_json()
-        print(body)
         user=User.query.filter_by(email=body.get('email')).one_or_none()
         if user is None:
             error_404= True
@@ -58,7 +57,7 @@ def login():
                 "status_code":status_code
             })
     except Exception as e:
-        print(e)
+        db.session.rollback()
         if error_404:
             abort(404)
         else:
@@ -77,36 +76,56 @@ def logout():
 @routes.route("/register",methods=["POST"])
 def register():
     response={}
+    error_422=False
+    error_404=False
     body = request.get_json()
     userName= body.get('userName',None)
     email= body.get('email',None)
+    rol= body.get('rol',None)
     password=generate_password_hash(body.get('password',None))
     
     if userName is None or email is None or password is None:
+        error_422=True
         abort(422)
     try:
-        user = User(
-        userName= userName,
-        email= email,
-        password=password,
-        dateCreated=datetime.datetime.now(),
-        )
-        db.session.add(user)
-        db.session.commit()
-        response['success']=True
-        response['status_code']= http.HTTPStatus.ACCEPTED
-        response['message']="Usuario agregado con exito"
+        user0=User.query.filter_by(email=email).one_or_none()
+        user1=User.query.filter_by(userName=userName).one_or_none()
+        if user0 != None or user1 != None:
+            return jsonify({
+                'message':"usuario o email ya existe",
+                'success':False,
+			})
+        else: 
+            user = User(
+			userName= userName,
+			email= email,
+			password=password,
+			dateCreated=datetime.datetime.now(),
+            rol=rol
+			)
+            
+            db.session.add(user)
+            db.session.commit()
+            user2=User.query.filter_by(email=email).one_or_none()
+            response['user_id']=user2.id
+            response['success']=True
+            response['status_code']= http.HTTPStatus.ACCEPTED
+            response['message']="Usuario agregado con exito"
+            return jsonify({
+                'message':response["message"],
+                'success':response["success"],
+				'user_id':response["user_id"],
+                "status_code":response["status_code"]
+			})
     except Exception as e:
         print(e)
         print(sys.exc_info())
         db.session.rollback()
-        response['success']=False
-        response['status_code']= http.HTTPStatus.BAD_REQUEST
-        response['message']="No se pudo registrar el usuario"
+        if error_422:
+            abort(422)
+        elif error_404:
+            abort(404)
+        else:
+            abort(500)
     finally:
         db.session.close()
-    return jsonify({
-        'message':response["message"],
-        'success':response["success"],
-        "status_code":response["status_code"]
-    })
