@@ -1,7 +1,5 @@
 <template>
     <div>
-
-
         <div class = "form">
                 <h2 class = "form_tittle">Register</h2>
                 <p class = "form_paragraph">¿Ya tienes una cuenta?
