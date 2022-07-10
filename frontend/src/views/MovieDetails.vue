@@ -8,7 +8,7 @@
         </div>
         <hr/>
         <div v-if="loadingComentario ==false" class="comentario-usuario">
-            <div  v-for="comentario in comentarios" :key="comentario.id" class="comentario">
+            <div  v-for="comentario in comentarios" :key="comentario.id">
                 <Comentario :data="comentario.data" :id="comentario.id" />
             </div>
         </div>
