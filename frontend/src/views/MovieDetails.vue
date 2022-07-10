@@ -1,14 +1,13 @@
 <template>
     <div >
-        <div v-if="loading ==false">
+        <div v-if="loading ==false" class="details">
             <Movie :data="movie.data" :id="movie.id" :informationButton="false"/>
         </div>
         <div v-else class="container-spinner">
             <LoadingSpinner />
         </div>
         <hr/>
-        <div v-if="loadingComentario ==false">
-            {{comentarios}}
+        <div v-if="loadingComentario ==false" class="comentario-usuario">
             <div  v-for="comentario in comentarios" :key="comentario.id">
                 <Comentario :data="comentario.data" :id="comentario.id" />
             </div>
@@ -42,7 +41,7 @@ getComentarios(props.id);
 </script>
 
 <style scoped>
-div{
+.details{
     color: red;
 }
 .container-spinner {
@@ -50,5 +49,15 @@ div{
     justify-content: center;
     align-items: center;
     height: 50px;
+}
+.comentario-usuario {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  padding: 18px;
+  background-color: #fff;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
 }
 </style>
