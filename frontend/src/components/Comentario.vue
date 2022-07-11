@@ -1,19 +1,18 @@
 <template>
     <div class="comentarios-usuarios">
-        <div class="comentario-usuario">
-            <div class="comentario">
-                <div class="usuario-comentario">
-                    <div class="texto">
-                        {{ this.data['comentario'] }}
-                    </div>
-                    <div class="fecha">{{ this.data['dateCreated'] }}
-                    </div>
-                    <div class="botonlike">
-                        <button><i class="fa-solid fa-thumbs-up" @click="validateLike(this.id,this.data['likes'])"></i></button>
-                        {{ this.data['likes'] }}
-                    </div>
-                </div>
+        <div class="comentario-usuario"> 
+            <div class="usuario">{{user['userName']}}</div>
+            
+            <div class="texto">
+                {{ this.data['comentario'] }}
             </div>
+            <div class="botonlike">
+                <button><i class="fa-solid fa-thumbs-up" @click="validateLike(this.id,this.data['likes'])"></i>{{ this.data['likes'] }}</button>
+                
+            </div>
+            <div class="fecha">{{ this.data['dateCreated'] }}
+            </div>
+
         </div>
     </div>
 </template>
@@ -74,24 +73,67 @@ const validateLike = async (id, like) => {
 <style lang="scss" scoped>
 
 .comentarios-usuarios {
-    width: calc(100% - 2.5rem);
-}
-.comentario-usuario {
-
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    margin-bottom: 1.5rem;
-    padding: 18px;
-    background-color: #fff;
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
+    width: 100%;
 }
 .comentarios-usuarios .comentario-usuario {
-    display: flex;
+    display: block;
     flex-wrap: wrap;
+    background-color: #fff;
+    margin-top: 10px;
+    margin: 10px;
+    border-radius: 12px;
 }
-.comentarios-usuarios .usuario-comentario .texto {
+.comentarios-usuarios .comentario-usuario .usuario {
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.comentarios-usuarios .comentario-usuario .fecha{
+    text-align: right;
+    float: right;
+    font-size: small;
+    margin-right: 5px;
+}
+.comentarios-usuarios .comentario-usuario .texto{
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    padding: 10px 20px;
+    margin-top: 5px;
+    text-align: left;
+}
+
+.comentarios-usuarios .botonlike button{
+    display: flex;
+    border: 0;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: background-color .5s;
+    cursor: pointer;
+}
+.comentarios-usuarios .botonlike i {
+    margin-right: .5rem;
+    
+}
+.comentarios-usuarios .botonlike {
+    display: flex;
+    border: 0;
+    padding: 0px 15px;
+    border-radius: 8px;
+    
+}
+.comentarios-usuarios .botonlike button:hover{
+    background-color: rgba(46, 47, 53, 0.369);
+}
+
+/*.comentarios-usuarios .comentario-usuario .usuario-comentario .texto {
     padding: 10px 15px;
     width: auto;
     display: inline-block;
@@ -100,8 +142,9 @@ const validateLike = async (id, like) => {
     font-size: 0.9rem;
     position: relative;
     padding-right: 1.65rem;
-}
-.comentarios-usuarios .usuario-comentario {
+}*/
+
+/*.comentarios-usuarios .usuario-comentario {
     width: 100%;
     display: block;
     margin-bottom: 0.75rem;
@@ -116,7 +159,7 @@ const validateLike = async (id, like) => {
     font-size: medium;
 }
 
-.comentario-usuario  .fecha{
+.comentarios-usuarios .comentario-usuario  .fecha{
     text-align: right;
     float: right;
     font-size: small;
@@ -131,5 +174,5 @@ const validateLike = async (id, like) => {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color ease-in 200ms;
-}
+}*/
 </style>
