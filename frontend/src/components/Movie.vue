@@ -5,7 +5,7 @@
             <strong class="title-movie">{{this.data['nombre']}}</strong>
             <p class="description-movie">{{this.data['description']}}</p>
             <div v-if="this.informationButton==true">
-                <router-link :to="`/movie/${this.id}`" >más</router-link>
+                <router-link :to="`/movie/${this.id}`" >Ver comentarios</router-link>
             </div>
             <div v-else style="display: flex; flex-direction: column;">
                 <strong >Calificación: {{this.data['calificacion']}}/10</strong>
@@ -34,7 +34,7 @@ const props = defineProps ({
 
 <style lang="scss" scoped>
 .container-movie {
-    border: 1px solid #000;
+    border: 1px solid #fff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -62,5 +62,8 @@ img {
 a {
     text-decoration: none;
     color: rgb(111, 0, 0);
+}
+.description-movie {
+    color: #fff;
 }
 </style>
