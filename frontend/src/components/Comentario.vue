@@ -72,13 +72,7 @@ const validateLike = async (id, like) => {
 </script>
 
 <style lang="scss" scoped>
-.icon-deactivate {
-    color: rgb(180, 99, 99);
-}
 
-.icon-activate {
-    color: rgb(202, 52, 52);
-}
 .comentarios-usuarios {
     width: calc(100% - 2.5rem);
 }
