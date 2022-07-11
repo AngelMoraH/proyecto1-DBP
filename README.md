@@ -42,6 +42,10 @@ Las librerías utilizadas en el proyecto son:
 * **Werkzeug:** Es una completa biblioteca de aplicaciones web WSGI. Comenzó como una simple colección de varias utilidades para aplicaciones WSGI y se ha convertido en una de las bibliotecas de utilidades WSGI más avanzadas.
 * **Flask-Migrate:** Es una extensión que maneja las migraciones de bases de datos SQLAlchemy para aplicaciones Flask que usan Alembic.
 * **http-tools:** httptools lo ayuda a capturar, repetir e interceptar en vivo las solicitudes HTTP con capacidades de secuencias de comandos.
+* **vite:** herramienta de frontend que ayuda a crear proyectos de forma agnóstica (sin atarte a ningún framework concreto) y que su desarrollo y construcción final sea lo más sencilla y cómoda posible. Está desarrollada por Evan You, el creador de Vue.
+* **vue-router:** La biblioteca de enrutamiento oficial de Vue del lado del cliente que proporciona las herramientas necesarias para asignar los componentes de una aplicación a diferentes rutas de URL del navegador.
+* **vue:** Es un framework progresivo para construir interfaces de usuario. A diferencia de otros frameworks monolíticos, Vue está diseñado desde cero para ser utilizado incrementalmente.
+* **pinia:** Es una nueva librería de gestión de estados para el ecosistema Vue, desarrollada por Eduardo San Martin, miembro del equipo Core de Vue y, también conocido, por desarrollar el imprescindible Vue Router. Como gestor de estados que es, cumple la misma función que Vuex y otras tantas librerías con el mismo propósito, aunque en este caso, Pinia sería oficial y cuenta con el soporte del equipo encargado de Vue.
 <hr/>
 
 # Información acerca de los endpoint
@@ -128,6 +132,3 @@ Las librerías utilizadas en el proyecto son:
 * Para correr el sistema en el host local, se debe de ejecutar el siguiente comando:
   * **python app.py**
 
-
-# LICENCIA
-Copyright (c) 2022 HORRORPEDIA Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
