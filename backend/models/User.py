@@ -14,7 +14,6 @@ class User(db.Model):
     rol = db.Column(db.String(), nullable=False)
     gustar = db.relationship("Comentario",secondary=like_user_comentario,back_populates="ilikes",lazy=True)
     
-    
     def __repr__(self):
         return str(
             {

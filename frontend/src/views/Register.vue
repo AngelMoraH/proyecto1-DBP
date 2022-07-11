@@ -83,6 +83,9 @@ const funcionRegister = async() => {
         await register(username.value,email.value,password.value);
         if(messageUser.value == "usuario o email ya existe"){
             alert(messageUser.value);
+            
+        }else if (errorUser==null){
+            alert("error inesperado, intente nuevamente");
         }else{
             router.push('/login');
         }

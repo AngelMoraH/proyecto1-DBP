@@ -73,6 +73,29 @@ export const comentariosStore = defineStore('comentarios',{
             } finally {
                 this.loadingComentario = false
             }
+        },
+        async addComentario(comentario,idUser,idMovie) {
+            this.loadingComentario = true;
+            try {
+                await fetch(baseURL + `comentarios`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "data": {
+                            "comentario": comentario,
+                            "idUser": idUser,
+                            "idMovie": idMovie
+                        }
+                    })
+                })
+            } catch (error) {
+                this.errorComentario = error
+            } finally {
+                this.getComentarios(idMovie);
+                this.loadingComentario = false
+            }
         }
     }
 });

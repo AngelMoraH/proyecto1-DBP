@@ -7,7 +7,6 @@
         <strong>{{ this.data['likes'] }}</strong>
         <div class="botonlike">
             <button><i class="fa-solid fa-thumbs-up" @click="validateLike(this.id,this.data['likes'])"></i></button>
-            <p>{{ this.data['likes'] }}</p>
         </div>
     </div>
 </template>
