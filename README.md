@@ -51,20 +51,16 @@ Las librerías utilizadas en el proyecto son:
 <hr/>
 
 # Información acerca de los endpoint
-* En el archivo home.py se encuentran los siguientes endpoints: 
-  * **home:** Es la encargada de renderizar la página principal de nuestro proyecto y de validar si el usuario esta logueado.
-  * **infoMovie:** Es la encargada de realizar la lógica para obtener la información de la pelicula seleccionada y renderizar la página con aquella información.
   
 * En el archivo users.py se encuentran los siguientes endpoints:
-  * **login:** Este endpoint es el encargado de renderizar la página de inicio de sesión y de realizar la lógica de validación del email y la contraseña. Si la validación es exitosa se agrega a la sesión de la aplicación la información del usuario logueado, de lo contrario se envía los mensajes correspondientes de error.
-  * **register:** Este endpoint es el encargado de renderizar la página de registro de usuario y de realizar la validación del username, email y contraseña para que el usuario pueda registrarse de manera exitosa en la página web.
+  * **login:** Este endpoint es el encargado de realizar la lógica de validación del email y la contraseña. Si la validación es exitosa se agrega a la sesión de la aplicación la información del usuario logueado, de lo contrario se envía los mensajes correspondientes de error.
+  * **register:** Este endpoint es el encargado de realizar la validación del username, email y contraseña para que el usuario pueda registrarse de manera exitosa en la página web.
   * **logout:** Este endpoint es el encargado de realizar la lógica de cierre de sesión del usuario en la página web.
 
 * En el archivo movies.py se encuentran los siguientes endpoints:
   * **getMovies:** Es el encargado de obtener la lista de películas de terror guardadas en la base de datos.
   * **getMoviesById:** Es el encargado de obtener y mandar toda la información de la película seleccionada, através de su id, al cliente.
   * **createMovie:** Este endpoint es el encargado de crear y agregar una película en la base de datos.
-  * **agregarmoviesJSON:** En este endpoint se encuentra la lógica para agregar un conjunto de peliculas que se encuentren en el archivo movies.json a la base de datos.
   * **updateMovie:** Este endpoint es el encargado de actualizar la información, especialmente la calificación de la película en la base de datos.
   * **deleteMovie:** Este endpoint es el encargado de eliminar una película através de su id en la base de datos.
   
