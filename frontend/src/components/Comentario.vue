@@ -20,7 +20,11 @@
 
 <script setup>
 import { onMounted, ref } from "@vue/runtime-core";
+import { storeToRefs } from 'pinia';
+import { userStore } from '../store/store.js';
+const { islogged, user, loadingUser } = storeToRefs(userStore());
 const classIconLike = ref('icon-deactivate');
+
 const userName = ref('defult');
 const props = defineProps({
     id: {
