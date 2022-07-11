@@ -30,10 +30,9 @@ class TestCaseProyecto(unittest.TestCase):
             "idMovie": 1
         }
         self.newUser = {
-            "userName":"angel12",
-            "email":"angel12@gmail.com",
+            "userName":"ro123",
+            "email":"ro123@gmail.com",
             "password":"ANGELmora123",
-            "rol":"admin"
         }
         self.userLogin = {
             "email":"angel456mora123@gmail.com",
@@ -168,7 +167,7 @@ class TestCaseProyecto(unittest.TestCase):
         self.assertEqual(data["message"], "Comentario actualizado con exito")
         self.assertEqual(data["id"], comentario_id)
     def test_update_comentarios_failed(self):
-        res = self.client().put("/comentarios/200", json={"data": self.new_comentario})
+        res = self.client().put("/comentarios/2000000", json={"data": self.new_comentario})
         data=json.loads(res.data)
         
         self.assertEqual(res.status_code, 404)
@@ -194,12 +193,7 @@ class TestCaseProyecto(unittest.TestCase):
         self.assertEqual(data["message"], "resource not found")
     
     def test_get_user_By_Id_sucess(self):
-        
-        res0 = self.client().post("/register", json=self.newUser)
-        data0 = json.loads(res0.data)
-        print(data0)
-        movie_id = data0["user_id"]
-        res = self.client().get("/user/"+str(movie_id))
+        res = self.client().get("/user/4")
         data = json.loads(res.data)
         
         self.assertEqual(res.status_code, 200)
@@ -215,7 +209,7 @@ class TestCaseProyecto(unittest.TestCase):
         self.assertEqual(data["message"], "resource not found")
     
     def test_login_success(self):
-        res = self.client().post("/login/", json={"email": self.userLogin['email'],"password": self.userLogin['password']})
+        res = self.client().post("/login/", json={"email": 'angel456mora123@gmail.com',"password": 'ANGELmora123'})
         data = json.loads(res.data)
         
         self.assertEqual(res.status_code, 200)
@@ -230,7 +224,18 @@ class TestCaseProyecto(unittest.TestCase):
         self.assertEqual(data["message"],"Usuario o contraseña incorrectos")
     
     def test_register_success(self):
+        res = self.client().post("/register", json={"userName": 'r2','email': 'r2@gmail.com','password': '123','rol': 'default'})
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data["success"])
+        self.assertTrue(data["user_id"])
         
-        pass
+    def test_register_failed(self):
+        res = self.client().post("/register", json=self.newUser)
+        data = json.loads(res.data)
+
+        self.assertFalse(data["success"])
+        self.assertEqual(data["message"],"usuario o email ya existe")
     def tearDown(self):
         pass
