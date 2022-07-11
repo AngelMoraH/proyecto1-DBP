@@ -4,11 +4,11 @@
 <img style="width: 150px;" src='backend/static/imgs/grm.png' alt='logo'/>
 
 ## INTEGRANTES
-|Nombre y Apellido|Código|Roles|
-|:---|:---|:---|
-|Angel Mora Huamanchay|202010031|Backend|
-|Angel Gabriel Mucha Huaman|202110706|Frontend|
-|Johan Fabian Callinapa Chunga|202110701|Frontend|
+|Nombre y Apellido|Código|Backend|Frontend|
+|:---|:---|:---|:---|
+|Angel Mora Huamanchay|202010031|Backend|Frontend|
+|Angel Gabriel Mucha Huaman|202110706||Frontend|
+|Johan Fabian Callinapa Chunga|202110701||Frontend|
 
 <hr/>
 
@@ -46,6 +46,8 @@ Las librerías utilizadas en el proyecto son:
 * **vue-router:** La biblioteca de enrutamiento oficial de Vue del lado del cliente que proporciona las herramientas necesarias para asignar los componentes de una aplicación a diferentes rutas de URL del navegador.
 * **vue:** Es un framework progresivo para construir interfaces de usuario. A diferencia de otros frameworks monolíticos, Vue está diseñado desde cero para ser utilizado incrementalmente.
 * **pinia:** Es una nueva librería de gestión de estados para el ecosistema Vue, desarrollada por Eduardo San Martin, miembro del equipo Core de Vue y, también conocido, por desarrollar el imprescindible Vue Router. Como gestor de estados que es, cumple la misma función que Vuex y otras tantas librerías con el mismo propósito, aunque en este caso, Pinia sería oficial y cuenta con el soporte del equipo encargado de Vue.
+* **sass:**  Es un preprocesador que permite generar, de manera automática, hojas de estilo, añadiéndoles características que no tiene CSS.
+* **yarn:** Es un gestor dependencias de JavaScript, que está enfocado en la velocidad y la seguridad, y a diferencia de otros gestores como NPM, YARN es muy rápido.
 <hr/>
 
 # Información acerca de los endpoint
@@ -95,31 +97,35 @@ Las librerías utilizadas en el proyecto son:
     * **email:** Es el correo electrónico del usuario de tipo STRING.
     * **password:** Es la contraseña del usuario de tipo STRING que al momento de registrarse es encriptada.
     * **dateCreated:** Es la fecha en la que se creó el usuario de tipo DATETIME.
+    * **rol:** Es el rol del usuario de tipo STRING.
 * **LIKE_USER_COMENTARIO:** Es la relación many to many entre el usuario y el comentario, esta relación se crea cuando un usuario le da like a un comentario.
 
 <hr/>
 
 # Hosts
-* El **proyecto** se encuentra en **localhost:5000**, host proporcionado por ***FLASK.***
-
+* El **backend** se encuentra en **localhost:5000**, host proporcionado por ***FLASK.***
+* El **frontend** se encuentra en **localhost:3000**, host proporcionado por ***Vue.***
 * Nuestra **base de datos** se encuentra en **ec2-54-164-40-66.compute-1.amazonaws.com**. El motivo por el cuál subimos nuestra base de datos a un host remoto es por la facilidad al momento de diseñar el front-end de nuestra página web, ya que si hubiesemos dejado nuestra base de datos en el local al momento que un integrante desee ver los datos tendría que agregarlos el mismo a su base de datos local, obviamente este proceso no es el adecuado por lo cuál como grupo tomamos la decisión de subir nuestra base de datos a un host remoto proveido por **Heroku**.
 <hr/>
 
 ## FORMA DE AUTENTICACIÓN
-* No es necesario registrarse o inciar sesión para poder acceder a nuestra página web, pero como se mencionó anteriormente el usuario debe de estar registrado y logueado en la página web para poder hacer un comentario o darle me gusta. Para eso hemos implementado un sistema de autenticación usando las funciones Werkzeug y session provenientes de Flask. 
+* El usuario debe registrarse e inciar sesión para poder acceder a nuestra página web para poder hacer un comentario o darle me gusta. Para eso hemos implementado un sistema de autenticación usando las funciones Werkzeug y session provenientes de Flask. 
   * La primera la usamos al momento de registrar un usuario para encriptar la contraseña ingresada y al momento de iniciar sesión para poder verificar que la contraseña ingresada sea la misma del usuario
-  * la segunda la usamos para poder guardar la información del usuario logueado en la sesión haciendo que aquella información sea accesible en cualquier parte de la página.
-* Al momento de iniciar sesión se le redirige a la página **login.html**, donde se encuentra los inputs necesarios para que el usuario pueda loguearse.
-* Al momento de registrarse se le redirige a la página **register.html**, donde se encuentra los inputs necesarios para que el usuario pueda registrarse.
+  * la segunda la usamos para poder guardar la información del usuario logueado en la sesión haciendo que aquella información sea accesible en cualquier parte de la página, mencionando que en la parte del frontend usamos tanto pinia como el localStorage para mantener la sesión del usuario disponible aunque se actualice la página.
+* Al momento de iniciar sesión se le redirige a la ruta **/login**, donde se encuentra los inputs necesarios para que el usuario pueda loguearse.
+* Al momento de registrarse se le redirige a la ruta **/register**, donde se encuentra los inputs necesarios para que el usuario pueda registrarse.
 <hr/>
 
 ## Manejo de errores HTTP
 * Para el manejo de errores hemos utilizado la libreria **http-tools**, la cual nos permite manejar los errores HTTP de forma sencilla y eficiente.
 * Usamos la función **abort** para manejar los errores HTTP, esta función recibe como parámetro el código de error proveniente de **http-tools**.
+* Agregamos a nuestra api una función que nos permita manejar los errores HTTP.
 * Para nuestro proyecto usamos los siguientes códigos de error:
   * **INTERNAL_SERVER_ERROR: 500**: Error interno del servidor.
   * **ACEPTED: 202**: El recurso ha sido aceptado.
   * **NOT_FOUND: 404**: El recurso solicitado no existe.
+  * **UNPROCESSABLE: 422**: Unprocessable.
+  * **Forbidden: 403**: Acceso denegado.
   
 ## Cómo ejecutar el sistema (Deployment scripts)
 * Es necesario crearse un entorno virtual, el comando es:
@@ -129,6 +135,11 @@ Las librerías utilizadas en el proyecto son:
 * Una vez activado el entorno virtual se debe de ejecutar el siguiente comando:
   * **pip install -r requirements.txt**
   * con esto se instala todas las librerías necesarias para que corra la página web.
-* Para correr el sistema en el host local, se debe de ejecutar el siguiente comando:
-  * **python app.py**
-
+* Para correr el sistema en el host local, se deben ejecutar los siguientes comandos:
+  * **$env:FLASK_APP='server'**
+  * **$env:FLASK_ENV='development'**
+  * **flask run**
+  * con esto se corre el api.
+* Para correr el servidor de Vue, se debe ejecutar el siguiente comando:
+  * **yarn dev**
+  * con esto se corre el frontend.
