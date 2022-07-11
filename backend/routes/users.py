@@ -37,6 +37,7 @@ def login():
             if check_password_hash(user.password,body.get('password')):
                 session['user']=user.toJson()
                 status_code=http.HTTPStatus.OK
+                print(user.toJson())
                 return jsonify({
                     "user":user.toJson(),
                     "success":True,
@@ -81,7 +82,7 @@ def register():
     body = request.get_json()
     userName= body.get('userName',None)
     email= body.get('email',None)
-    rol= body.get('rol',None)
+    rol= 'default'
     password=generate_password_hash(body.get('password',None))
     
     if userName is None or email is None or password is None:

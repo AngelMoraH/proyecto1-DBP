@@ -6,12 +6,14 @@ import MovieDetail from "../views/MovieDetails.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import AddMovie from "../views/CreateMovie.vue";
+import Profile from "../views/Profile.vue";
 const routes = [
     { path: "/",name:'Home', component: Home,meta: { requiresAuth: true } },
     { path: "/movie/:id", component: MovieDetail, props:true },
     { path: "/login", component: Login, props:true },
     { path: "/register", component: Register, props:true },
     { path: "/addmovie", component: AddMovie, meta: { requiresAuth: true } },
+    {path:"/profile",component:Profile,meta:{requiresAuth:true}}
 ];
 
 const history = createWebHistory();

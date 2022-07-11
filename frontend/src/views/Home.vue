@@ -15,6 +15,7 @@
             <div>
                 <input type="button" value="1" @click="getMovies(1)" />
                 <input type="button" value="2" @click="getMovies(2)" />
+                <input type="button" value="3" @click="getMovies(3)" />
             </div>
         </div>
     </div>

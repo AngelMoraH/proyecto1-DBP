@@ -4,6 +4,12 @@
             <router-link to="/">
                 <strong class="navfont" style="color:rgb(233, 233, 233)">HORRORPEDIA</strong>
             </router-link>
+            <div v-if="user" class="container-avatar">
+                <router-link to="/profile">
+                    <img src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745" alt="avatar">
+                </router-link>
+                
+            </div>
             <input type="checkbox" id="toggle" class="input-toggler">
             <label for="toggle" class="menu-toggler">
                 <span class="menu-toggler-line"></span>
@@ -12,12 +18,12 @@
             </label>
 
             <aside class="sidebar">
-                <ul class="menu" v-if="user!=null">
+                <ul class="menu" v-if="user != null">
                     <li>
                         <router-link to="/"><span class="menu-link">Home</span>
                         </router-link>
                     </li>
-                    <li v-if="user['userName'] == 'angel' && user['email'] == 'angel456mora123@gmail.com'">
+                    <li v-if="user['rol'] == 'admin'">
                         <router-link to="/addmovie"><span class="menu-link">add movie</span>
                         </router-link>
                     </li>
@@ -68,13 +74,22 @@ const functionLogOut = async () => {
     router.push('/login')
 
 };
+console.log(user);
 </script>
 
 <style lang="scss" scoped>
 :root {
     --color-1: #90080c;
 }
-
+.container-avatar {
+    position:absolute;
+    right: 90px;
+    top: 10px;
+}
+img {
+    width: 70px;
+    height: 70px;
+}
 .header {
     background-color: #84090f;
     height: 80px;

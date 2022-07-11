@@ -72,7 +72,11 @@ const funcionLogin = async () => {
         alert("email o password vacios");
     }else {
         await login(email.value, password.value);
-        router.push('/');
+        if (islogged.value) {
+            router.push("/");
+        } else {
+            alert("email o password incorrectos");
+        }
     }
 
 };
