@@ -86,7 +86,7 @@ const addMovie = async () => {
     justify-content: space-evenly;
     align-items: center;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 1);
+    background: rgb(71, 1, 1);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
@@ -155,7 +155,7 @@ const addMovie = async () => {
 .login-box .user-box input:valid~label {
     top: -20px;
     left: 0;
-    color: #03e9f4;
+    color: #b9b9b9;
     font-size: 12px;
 }
 
@@ -165,7 +165,7 @@ const addMovie = async () => {
     display: inline-block;
     padding: 20px 61px;
     border-radius: 4px;
-    color: #03e9f4;
+    color: #ffffff;
     text-decoration: none;
     text-transform: uppercase;
     overflow: hidden;
@@ -189,7 +189,7 @@ const addMovie = async () => {
                 left: 0;
                 width: 100%;
                 height: 3px;
-                background: linear-gradient(90deg, transparent, #3a86ff);
+                background: linear-gradient(90deg, transparent, #ececec);
                 animation: animate1 1s linear infinite;
             }
 
@@ -210,7 +210,7 @@ const addMovie = async () => {
                 right: 0;
                 width: 3px;
                 height: 100%;
-                background: linear-gradient(180deg, transparent, #3a86ff);
+                background: linear-gradient(180deg, transparent, #dcdddf);
                 animation: animate2 1s linear infinite;
                 animation-delay: 0.25s;
             }
@@ -232,7 +232,7 @@ const addMovie = async () => {
                 right: 0;
                 width: 100%;
 
-                background: linear-gradient(270deg, transparent, #3a86ff);
+                background: linear-gradient(270deg, transparent, #ffffff);
                 animation: animate3 1s linear infinite;
                 animation-delay: 0.5s;
             }
@@ -256,7 +256,7 @@ const addMovie = async () => {
                 left: 0;
                 width: 3px;
                 height: 100%;
-                background: linear-gradient(360deg, transparent, #3a86ff);
+                background: linear-gradient(360deg, transparent, #ffffff);
                 animation: animate4 1s linear infinite;
                 animation-delay: 0.75s;
             }
