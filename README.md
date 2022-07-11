@@ -12,6 +12,7 @@
 
 <hr/>
 
+
 ## DESCRIPCIÓN DEL PROYECTO
 
 Nuestro proyecto es una página web que contiene una lista de películas de terror con su respectiva información:
