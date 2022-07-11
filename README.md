@@ -1,7 +1,7 @@
 
 # HORRORPEDIA
 
-<img style="width: 150px;" src='backend/static/imgs/grm.png' alt='logo'/>
+<img style="width: 150px;" src='frontend/src/assets/logo.png' alt='logo'/>
 
 ## INTEGRANTES
 |Nombre y Apellido|Código|Backend|Frontend|
