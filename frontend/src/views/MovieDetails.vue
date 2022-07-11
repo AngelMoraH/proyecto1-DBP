@@ -68,18 +68,7 @@ async function addComentarios(){
     align-items: center;
     height: 50px;
 }
-.comentario-usuario {
-    justify-content: left;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    margin-bottom: 1.5rem;
-    padding: 18px;
-    background-color: #fff;
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-}
-.button {
+button {
     background-color: #8f0606;
     color: white;
     padding: 10px 20px;
@@ -91,7 +80,7 @@ async function addComentarios(){
     width: 20%;
     transition: border-radius 0.3s ease-in-out,border 0.3s ease-in-out, color 0.3s ease-in-out,background-color 0.6s ease-in-out;
 }
-.button:hover{
+button:hover{
     background-color: transparent;
     color: #8f0606;
     padding: 10px 20px;
