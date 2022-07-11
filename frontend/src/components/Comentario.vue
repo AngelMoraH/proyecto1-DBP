@@ -1,13 +1,19 @@
 <template>
-    <div class="comentario-usuario">
-        <div class="comentario">
-        <h4>{{ this.data['comentario'] }}</h4> </div>
-
-        <div class="fecha">{{ this.data['dateCreated'] }}</div>
-        <strong>{{ this.data['likes'] }}</strong>
-        <div class="botonlike">
-            <button><i class="fa-solid fa-thumbs-up" @click="validateLike(this.id,this.data['likes'])"></i></button>
-            <p>{{ this.data['likes'] }}</p>
+    <div class="comentarios-usuarios">
+        <div class="comentario-usuario">
+            <div class="comentario">
+                <div class="usuario-comentario">
+                    <div class="texto">
+                        {{ this.data['comentario'] }}
+                    </div>
+                    <div class="fecha">{{ this.data['dateCreated'] }}
+                    </div>
+                    <div class="botonlike">
+                        <button><i class="fa-solid fa-thumbs-up" @click="validateLike(this.id,this.data['likes'])"></i></button>
+                        {{ this.data['likes'] }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -73,27 +79,51 @@ const validateLike = async (id, like) => {
 .icon-activate {
     color: rgb(202, 52, 52);
 }
+.comentarios-usuarios {
+    width: calc(100% - 2.5rem);
+}
 .comentario-usuario {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin-bottom: 1.5rem;
-  padding: 18px;
-  background-color: #fff;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    padding: 18px;
+    background-color: #fff;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
-.comentario-usuario .comentario {
-  border: 0;
-  background-color: #f0f0f0;
-  display: block;
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 0.5rem;
-  padding: 10px 15px;
-  font-size: medium;
+.comentarios-usuarios .comentario-usuario {
+    display: flex;
+    flex-wrap: wrap;
 }
-.comentario-usuario .fecha{
+.comentarios-usuarios .usuario-comentario .texto {
+    padding: 10px 15px;
+    width: auto;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: .25rem;
+    font-size: 0.9rem;
+    position: relative;
+    padding-right: 1.65rem;
+}
+.comentarios-usuarios .usuario-comentario {
+    width: 100%;
+    display: block;
+    margin-bottom: 0.75rem;
+    position: relative;
+    text-align: left;
+    border: 0;
+    background-color: #f0f0f0;
+    display: block;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    padding: 5px 10px;
+    font-size: medium;
+}
+
+.comentario-usuario  .fecha{
+    text-align: right;
     float: right;
     font-size: small;
 }

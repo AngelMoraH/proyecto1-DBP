@@ -51,13 +51,14 @@ getComentarios(props.id);
     height: 50px;
 }
 .comentario-usuario {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin-bottom: 1.5rem;
-  padding: 18px;
-  background-color: #fff;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+    justify-content: left;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    padding: 18px;
+    background-color: #fff;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
 </style>
