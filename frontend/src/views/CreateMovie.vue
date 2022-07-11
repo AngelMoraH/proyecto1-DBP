@@ -38,6 +38,13 @@
 
 <script setup>
 import { ref } from "@vue/runtime-core";
+import { storeToRefs } from 'pinia';
+import { userStore } from '../store/store.js';
+import { useRoute, useRouter } from 'vue-router';
+
+const router = useRouter();
+const route = useRoute();
+const { user } = storeToRefs(userStore());
 let titulo = ref("");
 let descripcion = ref("");
 let calificacion = ref(0.0);
@@ -48,7 +55,7 @@ const addMovie = async () => {
     if (titulo.value == "" || descripcion.value == "" || estreno.value == "" || imgURL.value == "" ) {
         alert("Todos los campos son obligatorios");
     } else {
-        const response = await fetch("http://localhost:5000/movies", {
+        const response = await fetch(`http://localhost:5000/movies/${user.value.rol}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -64,8 +71,9 @@ const addMovie = async () => {
             })
         });
         const data = await response.json();
-        if (data['sucess']) {
-            router.push("/");
+        console.log(data.success);
+        if (data['success']) {
+            alert("Pelicula agregada con exito");
         } else {
             alert("Error al agregar pelicula");
         }
@@ -86,7 +94,7 @@ const addMovie = async () => {
     justify-content: space-evenly;
     align-items: center;
     transform: translate(-50%, -50%);
-    background: rgb(71, 1, 1);
+    background: rgb(105, 0, 0);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
@@ -189,7 +197,7 @@ const addMovie = async () => {
                 left: 0;
                 width: 100%;
                 height: 3px;
-                background: linear-gradient(90deg, transparent, #ececec);
+                background: linear-gradient(90deg, transparent, #ffa47d);
                 animation: animate1 1s linear infinite;
             }
 
@@ -210,7 +218,7 @@ const addMovie = async () => {
                 right: 0;
                 width: 3px;
                 height: 100%;
-                background: linear-gradient(180deg, transparent, #dcdddf);
+                background: linear-gradient(180deg, transparent, #88b0ff);
                 animation: animate2 1s linear infinite;
                 animation-delay: 0.25s;
             }
@@ -232,7 +240,7 @@ const addMovie = async () => {
                 right: 0;
                 width: 100%;
 
-                background: linear-gradient(270deg, transparent, #ffffff);
+                background: linear-gradient(270deg, transparent, #c8ff7b);
                 animation: animate3 1s linear infinite;
                 animation-delay: 0.5s;
             }
@@ -256,7 +264,7 @@ const addMovie = async () => {
                 left: 0;
                 width: 3px;
                 height: 100%;
-                background: linear-gradient(360deg, transparent, #ffffff);
+                background: linear-gradient(360deg, transparent, #ff98f6);
                 animation: animate4 1s linear infinite;
                 animation-delay: 0.75s;
             }

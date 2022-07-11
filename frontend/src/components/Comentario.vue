@@ -1,14 +1,15 @@
 <template>
     <div class="comentarios-usuarios">
-        <div class="comentario-usuario"> 
-            <div class="usuario">{{user['userName']}}</div>
-            
+        <div class="comentario-usuario">
+            <div class="usuario">{{ userName }}</div>
+
             <div class="texto">
                 {{ this.data['comentario'] }}
             </div>
             <div class="botonlike">
-                <button><i class="fa-solid fa-thumbs-up" @click="validateLike(this.id,this.data['likes'])"></i>{{ this.data['likes'] }}</button>
-                
+                <button><i class="fa-solid fa-thumbs-up"
+                        @click="validateLike(this.id, this.data['likes'])"></i>{{ this.data['likes'] }}</button>
+
             </div>
             <div class="fecha">{{ this.data['dateCreated'] }}
             </div>
@@ -18,12 +19,9 @@
 </template>
 
 <script setup>
-import { ref } from "@vue/runtime-core";
-import { storeToRefs } from 'pinia';
-import {userStore} from '../store/store.js';
-const {islogged,user,loadingUser} = storeToRefs(userStore());
+import { onMounted, ref } from "@vue/runtime-core";
 const classIconLike = ref('icon-deactivate');
-
+const userName = ref('defult');
 const props = defineProps({
     id: {
         type: String,
@@ -34,6 +32,10 @@ const props = defineProps({
         required: true
     }
 })
+fetch(`http://localhost:5000/user/${props.data['idUser']}`)
+.then(response => response.json())
+.then(data => userName.value=data.user['userName']);
+
 const addLikesMovies = async (id, idUser) => {
     const response = await fetch(`http://localhost:5000/likes/${id}/${idUser}`, {
         method: 'POST',
@@ -61,23 +63,22 @@ const validateLike = async (id, like) => {
     if (rMessage.message == "like ya existe") {
         var reMessage = await removeLikeMovies(id, user.value.id);
         classIconLike.value = 'icon-activate';
-        props.data['likes'] --;
-        //document.getElementById(id).querySelector('.comentariolike').innerHTML--;
+        props.data['likes']--;
     } else {
-        props.data['likes'] ++;
-        //document.getElementById(id).querySelector('.comentariolike').innerHTML++;
+        props.data['likes']++;
     }
 }
+
 </script>
 
 <style lang="scss" scoped>
-
 .comentarios-usuarios {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     width: 100%;
 }
+
 .comentarios-usuarios .comentario-usuario {
     display: block;
     flex-wrap: wrap;
@@ -86,18 +87,21 @@ const validateLike = async (id, like) => {
     margin: 10px;
     border-radius: 12px;
 }
+
 .comentarios-usuarios .comentario-usuario .usuario {
     text-align: left;
     margin-left: 20px;
     margin-top: 5px;
 }
-.comentarios-usuarios .comentario-usuario .fecha{
+
+.comentarios-usuarios .comentario-usuario .fecha {
     text-align: right;
     float: right;
     font-size: small;
     margin-right: 5px;
 }
-.comentarios-usuarios .comentario-usuario .texto{
+
+.comentarios-usuarios .comentario-usuario .texto {
     margin-left: 10px;
     margin-right: 10px;
     border: 0;
@@ -110,7 +114,7 @@ const validateLike = async (id, like) => {
     text-align: left;
 }
 
-.comentarios-usuarios .botonlike button{
+.comentarios-usuarios .botonlike button {
     display: flex;
     border: 0;
     padding: 8px 15px;
@@ -118,18 +122,21 @@ const validateLike = async (id, like) => {
     transition: background-color .5s;
     cursor: pointer;
 }
+
 .comentarios-usuarios .botonlike i {
     margin-right: .5rem;
-    
+
 }
+
 .comentarios-usuarios .botonlike {
     display: flex;
     border: 0;
     padding: 0px 15px;
     border-radius: 8px;
-    
+
 }
-.comentarios-usuarios .botonlike button:hover{
+
+.comentarios-usuarios .botonlike button:hover {
     background-color: rgba(46, 47, 53, 0.369);
 }
 

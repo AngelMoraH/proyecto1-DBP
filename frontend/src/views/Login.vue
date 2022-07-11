@@ -1,46 +1,43 @@
 <template>
     <div>
-        <body>
-            <div class = "form">
-                <h2 class = "form_tittle">Ingresa</h2>
-                 <p class = "form_paragraph">¿No tienes una cuenta?
+        <div class="form">
+            <h2 class="form_tittle">Ingresa</h2>
+            <p class="form_paragraph">¿No tienes una cuenta?
 
-                    <a class = "form_link" href="/register">Entra aqui</a>
-                    <!-- <button class = "form_submit" @click="funcionLogin()">Ingresar</button> -->
+                <a class="form_link" href="/register">Entra aqui</a>
+                <!-- <button class = "form_submit" @click="funcionLogin()">Ingresar</button> -->
 
-                </p>
-                <div class = "form_container">
+            </p>
+            <div class="form_container">
 
-                    <div class = "form_group">
-                        <input class = form_input type="text" placeholder="" v-model="email">
-                        <label for="usuario" class = form_label>Email</label>
-                        <span class = "form_line"></span>
-                    </div>
-                    <div class = "form_group">
-                        <input class =  form_input :type="tipe" placeholder="" v-model="password">
-                        <label for="contrasena" class = form_label>Password</label>
-                        <div class="icon">
-                            <div v-if="tipe == 'password'">
-                                <button @click="showPassword()">
-                                    <i class="fa-solid fa-eye-slash"></i>
-                                </button>
-                            </div>
-                            <div v-else>
-                                <button @click="showPassword()">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <span class = "form_line"></span>
-                     </div>
-                    <button class = "form_submit"  @click="funcionLogin()">Ingresar</button>
-
+                <div class="form_group">
+                    <input class=form_input type="text" placeholder="" v-model="email">
+                    <label for="usuario" class=form_label>Email</label>
+                    <span class="form_line"></span>
                 </div>
+                <div class="form_group">
+                    <input class=form_input :type="tipe" placeholder="" v-model="password">
+                    <label for="contrasena" class=form_label>Password</label>
+                    <div class="icon">
+                        <div v-if="tipe == 'password'">
+                            <button @click="showPassword()">
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </button>
+                        </div>
+                        <div v-else>
+                            <button @click="showPassword()">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <span class="form_line"></span>
+                </div>
+                <button class="form_submit" @click="funcionLogin()">Ingresar</button>
             </div>
-    
-        </body>
+        </div>
 
-        
+
+
 
     </div>
 </template>
@@ -70,7 +67,7 @@ const showPassword = () => {
 const funcionLogin = async () => {
     if (email.value == "" || password.value == "") {
         alert("email o password vacios");
-    }else {
+    } else {
         await login(email.value, password.value);
         if (islogged.value) {
             router.push("/");
@@ -85,7 +82,7 @@ const funcionLogin = async () => {
 </script>
 
 <style lang="scss" scoped>
-.form_submit{
+.form_submit {
     background: #9b2222;
     color: #fff;
     font-family: 'Roboto', sans-serif;
@@ -97,7 +94,8 @@ const funcionLogin = async () => {
     width: 100%;
     padding: .6em .3em;
 }
-.icon{
+
+.icon {
     position: absolute;
     height: 60%;
     position: absolute;
@@ -107,7 +105,8 @@ const funcionLogin = async () => {
     opacity: 0.3;
     cursor: pointer;
 }
-.container{
+
+.container {
     background-color: #fff;
     margin: auto;
     width: 90%;
@@ -117,7 +116,8 @@ const funcionLogin = async () => {
     box-shadow: 0 5px 10px -5px rgb(0 0 0/ 30%);
     text-align: center;
 }
-.body{
+
+.body {
     font-family: 'Roboto', sans-serif;
     background-color: #e5e5f7;
     background-size: 20px 20px;
@@ -126,37 +126,46 @@ const funcionLogin = async () => {
     min-height: 100vh;
 }
 
-.form{
+.form {
     background-color: rgba(252, 252, 252, 0.747);
     margin: auto;
     width: 90%;
     max-width: 400px;
     padding: 4.5em 3em;
     border-radius: 10px;
-    box-shadow: 0 5px 10px -5px rgb(0 0 0/ 30%) ;
+    box-shadow: 0 5px 10px -5px rgb(0 0 0/ 30%);
     text-align: center;
 }
-.form_container{
+
+.form_container {
     margin-top: 2em;
     display: grid;
     gap: 2.5em;
 
 }
 
-.form_tittle{
+.form_tittle {
     font-size: 2rem;
     margin-bottom: .5em
-}.form_paragraph{
+}
+
+.form_paragraph {
     font-weight: 300;
-    
-}.form_link{
+
+}
+
+.form_link {
     font-weight: 400;
     color: #000;
-}.form_group{
+}
+
+.form_group {
     position: relative;
     --color: #5757577e;
 
-}.form_input{
+}
+
+.form_input {
     width: 100%;
     background: none;
     color: #706c6c;
@@ -167,7 +176,8 @@ const funcionLogin = async () => {
     border-bottom: 1px solid var(--color);
     font-family: 'Roboto', sans-serif;
 }
-.form_line{
+
+.form_line {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -178,7 +188,8 @@ const funcionLogin = async () => {
     transform: left bottom;
     transition: transform .4s;
 }
-.form_label{
+
+.form_label {
     color: var(--valor);
     cursor: pointer;
     position: absolute;
@@ -189,18 +200,18 @@ const funcionLogin = async () => {
 
 }
 
-.form_input:not(:placeholder-shown){
+.form_input:not(:placeholder-shown) {
     color: #706c6c;
 }
 
-.form_input:focus +.form_label, 
-.form_input:not(:placeholder-shown)+.form_label{
+.form_input:focus+.form_label,
+.form_input:not(:placeholder-shown)+.form_label {
     transform: translateY(-12px) scale(.7);
     transform-origin: left top;
     color: #8b1b1b;
-} 
+}
 
-.form_line{
+.form_line {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -213,7 +224,7 @@ const funcionLogin = async () => {
 
 }
 
-.form_group{
+.form_group {
     position: relative;
     --color: #5757577e;
 }
@@ -224,10 +235,10 @@ const funcionLogin = async () => {
 // }
 
 
-.form_label{
+.form_label {
     color: var(--color);
     cursor: pointer;
-    position:absolute;
+    position: absolute;
     top: 0;
     left: 5px;
     transform: translateY(10px);
@@ -235,7 +246,7 @@ const funcionLogin = async () => {
 }
 
 
-.form_line{
+.form_line {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -251,5 +262,4 @@ const funcionLogin = async () => {
 // .form_input:not(:placeholder-shown) ~ .form_line{
 //     transform: scale(1);
 // }
-
 </style>

@@ -36,7 +36,14 @@ router.beforeEach((to, from, next) => {
         } else {
             next();
         }
-    }else{
+    }else if (to.path==='/addmovie'){
+        if(islogged.value && user.rol=='admin'){
+            next();
+        }else{
+            next('/');
+        }
+    }
+    else{
         next();
     }
 })
