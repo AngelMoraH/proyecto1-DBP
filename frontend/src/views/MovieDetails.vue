@@ -68,7 +68,6 @@ async function addComentarios(){
     align-items: center;
     height: 50px;
 }
-<<<<<<< HEAD
 .comentario-usuario {
     justify-content: left;
     display: flex;
@@ -79,7 +78,7 @@ async function addComentarios(){
     background-color: #fff;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-=======
+}
 button {
     background-color: #8f0606;
     color: white;
@@ -91,7 +90,6 @@ button {
     font-size: 26px;
     width: 20%;
     transition: border-radius 0.3s ease-in-out,border 0.3s ease-in-out, color 0.3s ease-in-out,background-color 0.6s ease-in-out;
->>>>>>> 5dbed6bce6affef41a29af817f68adfe487f1d1a
 }
 button:hover{
     background-color: transparent;
